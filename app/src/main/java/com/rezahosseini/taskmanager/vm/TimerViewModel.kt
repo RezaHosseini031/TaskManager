@@ -4,8 +4,6 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -151,9 +149,6 @@ class TimerViewModel : ViewModel() {
             }
             mp.release()
         }
-//        val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-//        val r = RingtoneManager.getRingtone(context, notification)
-//        r.play()
     }
     fun restart(context: Context) {
         when (_mode.value) {

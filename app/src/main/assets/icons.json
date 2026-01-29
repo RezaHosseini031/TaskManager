@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "uriImage": "icons/icon1.png"
+  },
+  {
+    "id": 2,
+    "uriImage": "test"
+  },
+  {
+    "id": 3,
+    "uriImage": "icons/plus/plus_filled.png"
+  }
+]

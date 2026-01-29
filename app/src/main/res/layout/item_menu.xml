@@ -36,13 +36,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Info icon (اختیاری) -->
     <ImageView
         android:id="@+id/imageDescription"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:visibility="gone"
-        app:tint="?attr/itemIconTint"
+        android:src="@drawable/baseline_description_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

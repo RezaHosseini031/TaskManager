@@ -1,7 +1,5 @@
 package com.rezahosseini.taskmanager.di
 
-import com.google.gson.Gson
-import com.rezahosseini.taskmanager.model.network.web.mapper.WebDataImageMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +15,7 @@ class AppModule {
     @Provides
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://github.com/RezaHosseini031/TaskManager/tree/main/app/src/main/")
+            .baseUrl("https://raw.githubusercontent.com/RezaHosseini031/TaskManager/app/src/main/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 }
