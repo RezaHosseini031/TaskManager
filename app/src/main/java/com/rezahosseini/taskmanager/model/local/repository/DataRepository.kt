@@ -7,36 +7,18 @@ import com.rezahosseini.taskmanager.model.local.database.AppDatabase
 import kotlinx.coroutines.flow.Flow
 
 
-class DataRepository {
-    private var daoData: DataDao? = null
-    constructor(context: Context){
-        daoData= AppDatabase.getInstance(context).dataDao()
-    }
-    fun getAllData(): Flow<List<DataEntity>>{
-        return daoData!!.getAllData()
-    }
-    suspend fun getDataById(id: Long): DataEntity?{
-        return daoData!!.getDataById(id)
-    }
-    fun getDataByDone(done: Int): Flow<List<DataEntity>>{
-        return daoData!!.getDataByDone(done)
-    }
-    suspend fun getDataByName(name: String): DataEntity?{
-        return daoData!!.getDataByName(name)
-    }
-    fun getDataByAbout(about: String): Flow<List<DataEntity>>{
-        return daoData!!.getDataByAbout(about)
-    }
-    suspend fun insertData(data: DataEntity){
+class DataRepository(context: Context) {
 
-    }
-    suspend fun updateData(data: DataEntity){
+    private val daoData: DataDao = AppDatabase.getInstance(context).dataDao()
 
-    }
-    suspend fun deleteData(data: DataEntity){
+    fun getAllData(): Flow<List<DataEntity>> = daoData.getAllData()
+    fun getFiltered( query: String, sort: String): Flow<List<DataEntity>> = daoData.getFiltered(query, sort)
 
-    }
-    suspend fun deleteDataById(id: Long){
-
-    }
+    suspend fun insertData(data: DataEntity) = daoData.insertData(data)
+    suspend fun updateData(data: DataEntity) = daoData.updateData(data)
+    suspend fun deleteData(data: DataEntity) = daoData.deleteData(data)
+    suspend fun deleteDataById(id: Long) = daoData.deleteDataById(id)
+    suspend fun deleteAll() = daoData.deleteAll()
+    suspend fun deleteByDone(done: Int) = daoData.deleteByDone(done)
 }
+

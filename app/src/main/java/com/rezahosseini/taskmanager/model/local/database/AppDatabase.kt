@@ -12,7 +12,7 @@ import com.rezahosseini.taskmanager.model.local.dao.DataDao
     version = 1,
     exportSchema = false
 )
-abstract class AppDatabase : RoomDatabase(), DataDao {
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun dataDao(): DataDao
 

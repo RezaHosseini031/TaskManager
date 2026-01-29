@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/highPriority"
+        android:title="@string/high_priority"
+        android:icon="@drawable/baseline_location_searching_24"
+        app:tint="@color/tm_red"/>
+    <item android:id="@+id/mediumPriority"
+        android:title="@string/medium_priority"
+        android:icon="@drawable/baseline_location_searching_24"
+        app:tint="@color/tm_yellow"/>
+    <item android:id="@+id/lowPriority"
+        android:title="@string/low_priority"
+        android:icon="@drawable/baseline_location_searching_24"
+        app:tint="@color/tm_green"/>
+    <item android:id="@+id/noPriority"
+        android:title="@string/no_priority"
+        android:icon="@drawable/baseline_location_searching_24"
+        app:tint="@color/tm_gray"/>
+</menu>

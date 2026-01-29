@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="tm_black">#FF000000</color>
+    <color name="tm_white">#FFFFFFFF</color>
+    <color name="tm_cream">#FFF7F0</color>
+    <color name="tm_green">#4CAF50</color>
+    <color name="tm_gray">@android:color/darker_gray</color>
+    <color name="tm_grow">#03A9F4</color>
+    <color name="tm_yellow">#FFEB3B</color>
+    <color name="tm_red">#CD1010</color>
+<!--    ////-->
+    <!-- Primary -->
+    <color name="colorPrimary">#2979FF</color>
+    <color name="colorPrimaryVariant">#2962FF</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+
+    <!-- Secondary -->
+    <color name="colorSecondary">#00C853</color>
+    <color name="colorSecondaryVariant">#00BFA5</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+
+    <!-- Accent / Warning / Timer -->
+    <color name="colorAccent">#FFAB00</color>
+
+    <!-- Error -->
+    <color name="colorError">#D32F2F</color>
+    <color name="colorOnError">#FFFFFF</color>
+
+    <!-- Background & Surface -->
+    <color name="colorBackground">#FAFAF7</color>
+    <color name="colorOnBackground">#212121</color>
+
+    <color name="colorSurface">#FAFAFA</color>
+    <color name="colorOnSurface">#212121</color>
+    <!-- Status -->
+    <color name="status">#FFFFFF</color>
+    <!--    attr-->
+    <color name="BackgroundSearch">#F1F5FF</color>
+    <color name="BackgroundButton">#2A2F3A</color>
 </resources>

@@ -18,5 +18,8 @@ data class DataEntity(
     val about: String,
 
     @ColumnInfo(name = "done")
-    val done: Int
+    var done: Int,
+
+    @ColumnInfo(name= "priority")
+    var priority:Int
 )

@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/sortNameAsc"
+        android:title="@string/az" />
+
+    <item
+        android:id="@+id/sortNameDesc"
+        android:title="@string/za" />
+
+    <item
+        android:id="@+id/sortPriorityHigh"
+        android:title="@string/prio_high" />
+
+    <item
+        android:id="@+id/sortPriorityLow"
+        android:title="@string/prio_low" />
+    <item
+        android:id="@+id/sortDateNew"
+        android:title="@string/date_new" />
+    <item
+        android:id="@+id/sortDateOld"
+        android:title="@string/date_old" />
+
+</menu>

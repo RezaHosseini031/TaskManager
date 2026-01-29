@@ -1,9 +1,105 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.TaskManager" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorSurface">@color/tm_white</item>
+        <item name="android:textColorPrimary">@color/tm_black</item>
+        <item name="android:textColorSecondary">@color/tm_black</item>
+        <!--attr-->
+        <item name="backgroundButtonNav">@color/tm_black</item>
+        <item name="selectNav">@color/tm_white</item>
+        <item name="unSelectNav">@color/tm_black</item>
+        <item name="colorIcon">@color/tm_black</item>
     </style>
 
-    <style name="Theme.TaskManager" parent="Base.Theme.TaskManager" />
+    <style name="animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+<style name="Theme.TaskManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    <!-- Primary -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+    <item name="colorOnPrimary">@color/colorOnPrimary</item>
+
+    <!-- Secondary -->
+    <item name="colorSecondary">@color/colorSecondary</item>
+    <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+    <item name="colorOnSecondary">@color/colorOnSecondary</item>
+
+    <!-- Accent -->
+    <item name="colorAccent">@color/colorAccent</item>
+
+    <!-- Error -->
+    <item name="colorError">@color/colorError</item>
+    <item name="colorOnError">@color/colorOnError</item>
+
+    <!-- Background / Surface -->
+    <item name="android:colorBackground">@color/colorBackground</item>
+    <item name="backgroundColor">@color/colorBackground</item>
+    <item name="colorOnBackground">@color/colorOnBackground</item>
+
+    <item name="colorSurface">@color/colorSurface</item>
+    <item name="colorOnSurface">@color/colorOnSurface</item>
+
+    <!-- Components -->
+    <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
+    <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
+
+    <!-- Shadows / Elevation -->
+    <item name="android:elevation">4dp</item>
+
+    <item name="android:textColorPrimary">@color/tm_black</item>
+    <item name="android:textColorSecondary">@color/tm_black</item>
+    <!--status-->
+    <item name="android:statusBarColor">@color/status</item>
+    <item name="android:windowLightStatusBar">true</item>
+    <!--attr-->
+    <item name="backgroundButtonNav">@color/colorBackground</item>
+    <item name="selectNav">@color/colorPrimary</item>
+    <item name="unSelectNav">@color/colorOnBackground</item>
+    <item name="colorIcon">@color/tm_black</item>
+    <item name="tmBackgroundButton">@color/BackgroundButton</item>
+    <item name="tmBackgroundSearch">@color/BackgroundSearch</item>
+    <!-- Background -->
+    <item name="itemBackgroundColor">@color/tm_white</item>
+    <item name="itemBackgroundDone">#F5F5F5</item>
+
+    <!-- Text -->
+    <item name="itemTextColor">@color/tm_black</item>
+    <item name="itemTextColorDone">#9E9E9E</item>
+
+    <!-- Icon -->
+    <item name="itemIconTint">@color/tm_green</item>
+
+    <!-- Ripple / Touch -->
+    <item name="itemRippleColor">#E0E0E0</item>
+
+    <!-- Checkbox -->
+    <item name="itemCheckboxUnchecked">@color/colorPrimaryVariant</item>
+    <item name="itemCheckboxChecked">@color/colorAccent</item>
+</style>
+    <!-- res/values/styles.xml -->
+    <style name="DialogButton.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">10dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">15sp</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorOnPrimary</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+    </style>
+
+    <!-- res/values/styles.xml -->
+    <style name="DialogButton.Secondary" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">10dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">15sp</item>
+        <item name="backgroundTint">@color/colorOnPrimary</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>         <!-- گوشه گرد -->
+    </style>
+
 </resources>

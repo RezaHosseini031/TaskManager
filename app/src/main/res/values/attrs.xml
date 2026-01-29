@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="backgroundButtonNav" format="color"/>
+    <attr name="selectNav" format="color"/>
+    <attr name="unSelectNav" format="color"/>
+    <attr name="colorIcon" format="color"/>
+    <attr name="tmBackgroundButton" format="color"/>
+    <attr name="tmBackgroundSearch" format="color"/>
+    <!-- Item -->
+    <attr name="itemBackgroundColor" format="color"/>
+    <attr name="itemBackgroundDone" format="color"/>
+    <attr name="itemTextColor" format="color"/>
+    <attr name="itemTextColorDone" format="color"/>
+    <attr name="itemIconTint" format="color"/>
+    <attr name="itemRippleColor" format="color"/>
+
+    <!-- Checkbox -->
+    <attr name="itemCheckboxUnchecked" format="color"/>
+    <attr name="itemCheckboxChecked" format="color"/>
+</resources>
