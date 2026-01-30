@@ -9,7 +9,6 @@
     android:clickable="true"
     android:focusable="true">
 
-    <!-- Checkbox -->
     <CheckBox
         android:id="@+id/checkItem"
         android:layout_width="wrap_content"
@@ -20,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Item name -->
     <TextView
         android:id="@+id/textItemName"
         android:layout_width="0dp"

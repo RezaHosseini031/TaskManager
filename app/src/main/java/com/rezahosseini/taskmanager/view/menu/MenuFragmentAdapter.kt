@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Paint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.color.MaterialColors
 import com.rezahosseini.taskmanager.R
 import com.rezahosseini.taskmanager.model.local.DataEntity
 
@@ -50,23 +48,21 @@ class MenuFragmentAdapter(
         val accentColor = ContextCompat.getColor(context, R.color.colorAccent)
 
         val states = arrayOf(
-            intArrayOf(android.R.attr.state_checked),      // checked
-            intArrayOf(-android.R.attr.state_checked)      // unchecked
+            intArrayOf(android.R.attr.state_checked),
+            intArrayOf(-android.R.attr.state_checked)
         )
 
         val colors = intArrayOf(
-            accentColor,    // checked
-            priorityColor   // unchecked
+            accentColor,
+            priorityColor
         )
 
         holder.checkItem.buttonTintList = ColorStateList(states, colors)
         if (isDone){
-            Log.e("testIsDone","isDone")
             holder.textItemName.setTextColor(Color.parseColor("#9E9E9E"))
             holder.textItemName.paintFlags=
                 Paint.STRIKE_THRU_TEXT_FLAG
         }
-        Log.e("testDec",""+item.about)
         if (item.about.isNotEmpty()){
             holder.imageDeclaration.visibility=View.VISIBLE
         }

@@ -88,7 +88,6 @@ class MenuFragment : Fragment() {
                     is UiState.Success -> {
                         val listUnDone = state.data.filter { it.done == 0 }
                         val listDone = state.data.filter { it.done == 1 }
-                        Log.e("testIsDone","listDone"+listDone)
 
                         if(::menuFragmentAdapterUnDone.isInitialized)
                             menuFragmentAdapterUnDone.updateList(listUnDone.toMutableList())
@@ -132,7 +131,6 @@ class MenuFragment : Fragment() {
         adapter.onCheckItemClick = onCheckItemClick@{ data ->
             if (adapter.isItemMenuLocked(data.id)) return@onCheckItemClick
             adapter.lockItemMenu(data.id)
-            Log.e("testChangeItem","data="+data)
             data.done = 1 - data.done
             changeItem(data)
         }
@@ -143,7 +141,6 @@ class MenuFragment : Fragment() {
             val popup = PopupMenu(requireContext(), view)
             popup.menuInflater.inflate(R.menu.menu_delete, popup.menu)
 
-            // Force show icons
             try {
                 val fields = popup.javaClass.declaredFields
                 for (field in fields) {

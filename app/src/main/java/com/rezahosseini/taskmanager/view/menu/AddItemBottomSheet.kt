@@ -38,7 +38,6 @@ class AddItemBottomSheet(
             val popup = PopupMenu(requireContext(), anchor)
             popup.menuInflater.inflate(R.menu.more_menu_priority, popup.menu)
 
-            // Force show icons
             try {
                 val fields = popup.javaClass.declaredFields
                 for (field in fields) {
@@ -58,7 +57,6 @@ class AddItemBottomSheet(
                 e.printStackTrace()
             }
 
-            // تغییر رنگ آیکون‌ها
             popup.menu.findItem(R.id.highPriority)?.icon?.setTint(resources.getColor(android.R.color.holo_red_dark, null))
             popup.menu.findItem(R.id.mediumPriority)?.icon?.setTint(resources.getColor(android.R.color.holo_orange_light, null))
             popup.menu.findItem(R.id.lowPriority)?.icon?.setTint(resources.getColor(android.R.color.holo_green_dark, null))

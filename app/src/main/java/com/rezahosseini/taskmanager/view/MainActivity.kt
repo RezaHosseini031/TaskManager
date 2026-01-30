@@ -2,7 +2,6 @@ package com.rezahosseini.taskmanager.view
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -11,9 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,9 +18,7 @@ import com.rezahosseini.taskmanager.R
 import com.rezahosseini.taskmanager.model.local.DataEntity
 import com.rezahosseini.taskmanager.view.menu.AddItemBottomSheet
 import com.rezahosseini.taskmanager.vm.ViewModelData
-import com.rezahosseini.taskmanager.vm.state.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -87,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 setOnMenuItemClickListener { m ->
                     when (m.itemId) {
                         R.id.aboutUs -> {
-                            val dialog = Dialog(this@MainActivity) // تغییر اینجا
+                            val dialog = Dialog(this@MainActivity)
                             dialog.setContentView(R.layout.dialog_about_us)
                             dialog.window?.setLayout(
                                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -100,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                             val cancelBtn: TextView = dialog.findViewById(R.id.ok_text)
                             okBtn.setOnClickListener { dialog.dismiss() }
                             cancelBtn.setOnClickListener {  }
-                            dialog.show() // مهم!
+                            dialog.show()
                         }
 
                         R.id.share -> {

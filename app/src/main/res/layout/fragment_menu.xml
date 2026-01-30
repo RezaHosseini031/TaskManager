@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <!-- Toolbar -->
     <include
         android:id="@+id/toolbarFragmentMenu"
         layout="@layout/toolbar_fragment_menu"
@@ -15,7 +14,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/nestedScrollViewFragmentMenu"/>
 
-    <!-- Scrollable content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollViewFragmentMenu"
         android:layout_width="match_parent"
@@ -31,7 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- UnDone section -->
             <LinearLayout
                 android:id="@+id/layoutTitleWork"
                 android:layout_width="wrap_content"
@@ -71,7 +68,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <!-- Divider -->
             <View
                 android:id="@+id/dividerMenu"
                 android:layout_width="match_parent"
@@ -82,7 +78,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <!-- Done section -->
             <LinearLayout
                 android:id="@+id/layoutTitleWorkDone"
                 android:layout_width="wrap_content"
@@ -124,7 +119,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Loading / No data -->
     <ProgressBar
         android:id="@+id/loading_progress_bar_menu"
         android:layout_width="wrap_content"

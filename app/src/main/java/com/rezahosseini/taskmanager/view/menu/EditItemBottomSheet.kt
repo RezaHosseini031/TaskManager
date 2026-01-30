@@ -57,21 +57,18 @@ class EditItemBottomSheet(
         priority = v.findViewById<ImageView>(R.id.priority)
         val check = v.findViewById<CheckBox>(R.id.checkBox)
 
-        // init values
         name.setText(item.name)
         about.setText(item.about)
         check.isChecked = item.done == 1
         priorityValue = item.priority
         priority.imageTintList = ColorStateList.valueOf(priorityColor[priorityValue])
 
-        // show keyboard & focus
         name.post {
             name.requestFocus()
             val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT)
         }
 
-        // more menu
         more.setOnClickListener {
             PopupMenu(requireContext(), it).apply {
                 menuInflater.inflate(R.menu.more_menu, menu)
@@ -94,7 +91,6 @@ class EditItemBottomSheet(
             val popup = PopupMenu(requireContext(), anchor)
             popup.menuInflater.inflate(R.menu.more_menu_priority, popup.menu)
 
-            // Force show icons
             try {
                 val fields = popup.javaClass.declaredFields
                 for (field in fields) {
@@ -114,7 +110,6 @@ class EditItemBottomSheet(
                 e.printStackTrace()
             }
 
-            // تغییر رنگ آیکون‌ها
             popup.menu.findItem(R.id.highPriority)?.icon?.setTint(resources.getColor(android.R.color.holo_red_dark, null))
             popup.menu.findItem(R.id.mediumPriority)?.icon?.setTint(resources.getColor(android.R.color.holo_orange_light, null))
             popup.menu.findItem(R.id.lowPriority)?.icon?.setTint(resources.getColor(android.R.color.holo_green_dark, null))
