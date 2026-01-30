@@ -5,10 +5,39 @@
   },
   {
     "id": 2,
-    "uriImage": "test"
-  },
-  {
+    "uriImage": "icons/icon2.png"
+	},
+	{
     "id": 3,
-    "uriImage": "icons/plus/plus_filled.png"
-  }
+    "uriImage": "icons/icon3.png"
+	}
+	{
+    "id": 4,
+    "uriImage": "icons/icon4.png"
+	}
+	{
+    "id": 5,
+    "uriImage": "icons/icon5.png"
+	}
+	{
+    "id": 6,
+    "uriImage": "icons/icon6.png"
+	}
+	{
+    "id": 7,
+    "uriImage": "icons/icon7.png"
+	}
+	{
+    "id": 8,
+    "uriImage": "icons/icon8.png"
+	}
+	{
+    "id": 9,
+    "uriImage": "icons/icon9.png"
+	}
+	{
+    "id": 10,
+    "uriImage": "icons/icon10.png"
+	}
+	
 ]
