@@ -35,13 +35,10 @@ architecture design, and state management rather than UI-only implementation.
   <li>🧩 Clean, modular, and scalable architecture</li>
 </ul>
 
----
 <hr></hr>
 <h2 tabindex="-1" class="heading-element" dir="auto">Download</h2>
 <p dir="auto"><a href="https://github.com/RezaHosseini031/TaskManager/tree/main/app/release/app-release.apk"><img src="https://github.com/gokadzev/Musify/raw/master/repository_files/get-it-on-github.png" alt="Get it on Github" height="80" style="max-width: 100%; height: auto; max-height: 80px;"></a></p>
 <hr></hr>
-
----
 
 <h2>⚠️ Important Note</h2>
 
