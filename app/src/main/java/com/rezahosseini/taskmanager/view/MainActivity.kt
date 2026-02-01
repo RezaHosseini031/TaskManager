@@ -1,6 +1,8 @@
 package com.rezahosseini.taskmanager.view
 
 import android.app.Dialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -74,7 +76,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-
         imageMore.setOnClickListener {
             PopupMenu(this, it).apply {
                 menuInflater.inflate(R.menu.more_main_menu, menu)
@@ -90,14 +91,27 @@ class MainActivity : AppCompatActivity() {
                             dialog.setCancelable(true)
                             dialog.window?.attributes?.windowAnimations = R.style.animation
 
-                            val okBtn: TextView = dialog.findViewById(R.id.more_text)
-                            val cancelBtn: TextView = dialog.findViewById(R.id.ok_text)
-                            okBtn.setOnClickListener { dialog.dismiss() }
-                            cancelBtn.setOnClickListener {  }
+                            val moreText: TextView = dialog.findViewById(R.id.more_text)
+                            val okText: TextView = dialog.findViewById(R.id.ok_text)
+                            okText.setOnClickListener { dialog.dismiss() }
+                            moreText.setOnClickListener {
+                                val url = "https://github.com/RezaHosseini031/TaskManager"
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                startActivity(intent)
+                            }
                             dialog.show()
                         }
 
                         R.id.share -> {
+                            val intent = Intent(Intent.ACTION_SEND).apply {
+                                type = "text/plain"
+                                putExtra(
+                                    Intent.EXTRA_TEXT,
+                                    "💻 سورس برنامه روی گیت‌هاب 👇\n${"https://github.com/RezaHosseini031/TaskManager"}"
+                                )
+                            }
+
+                            startActivity(Intent.createChooser(intent, "اشتراک‌گذاری"))
                             Toast.makeText(this@MainActivity, "share", Toast.LENGTH_SHORT).show()
                         }
                     }

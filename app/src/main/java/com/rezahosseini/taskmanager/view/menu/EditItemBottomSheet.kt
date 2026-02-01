@@ -3,6 +3,7 @@ package com.rezahosseini.taskmanager.view.menu
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -79,7 +80,10 @@ class EditItemBottomSheet(
                             dismiss()
                             this@EditItemBottomSheet.dismiss()
                         }
-                        R.id.share -> Toast.makeText(context, "share", Toast.LENGTH_SHORT).show()
+                        R.id.share ->{
+                            Toast.makeText(context, "share", Toast.LENGTH_SHORT).show()
+                            shareTask(item.name,item.about)
+                        }
                     }
                     true
                 }
@@ -153,6 +157,15 @@ class EditItemBottomSheet(
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
         behavior.skipCollapsed = true
         behavior.isHideable = true
+    }
+    fun shareTask(title: String, desc: String) {
+        val text = "📝 $title\n$desc"
+
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, text)
+        }
+        context?.startActivity(Intent.createChooser(intent, context?.getString(R.string.share)))
     }
 
 }

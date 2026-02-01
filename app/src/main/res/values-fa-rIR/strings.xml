@@ -4,7 +4,9 @@
     <string name="name_work">عنوان کار</string>
     <string name="description">توضیحات</string>
     <string name="save">ذخیره</string>
-    <string name="description_about_us">توضیحات درباره ما</string>
+    <string name="description_about_us">این برنامه برای کمک به مدیریت کارهای روزانه و افزایش تمرکز ساخته شده است.
+می‌توانید کارهایتان را ثبت کنید، پیگیری کنید و با تایمر تمرکز، بهره‌وری بیشتری داشته باشید.
+برای مشاهده‌ی سورس کد و جزئیات بیشتر، از طریق گیت‌هاب اقدام کنید.</string>
     <string name="more_data">اطلاعات بیشتر</string>
     <string name="ok">باشه</string>
     <string name="Focus_min">تمرکز (دقیقه)</string>
@@ -36,4 +38,7 @@
     <string name="low_priority">الویت کم</string>
     <string name="no_priority">بدون الویت</string>
     <string name="empty" />
+    <string name="delete_all">حذف همه</string>
+    <string name="delete_selected">حذف انتخاب شده</string>
+    <string name="text_share_work">اشتراک گذاری کار</string>
 </resources>

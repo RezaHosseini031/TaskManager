@@ -4,7 +4,9 @@
     <string name="name_work">name work</string>
     <string name="description">description</string>
     <string name="save">save</string>
-    <string name="description_about_us">description_about_us</string>
+    <string name="description_about_us">This app is designed to help you manage daily tasks and stay focused.
+You can create tasks, track your progress, and use a focus timer to boost productivity.
+Check out the GitHub repository to see the source code and learn more.</string>
     <string name="more_data">More information</string>
     <string name="ok">ok</string>
     <string name="Focus_min">Focus (Minutes)</string>
@@ -36,6 +38,7 @@
     <string name="low_priority">low priority</string>
     <string name="no_priority">no priority</string>
     <string name="empty" />
-    <string name="delete_all">حذف همه</string>
-    <string name="delete_selected">حذف انتخاب شده</string>
+    <string name="delete_all">delete all</string>
+    <string name="delete_selected">delete done work</string>
+    <string name="text_share_work">share work</string>
 </resources>
