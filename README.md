@@ -38,8 +38,6 @@ architecture design, and state management rather than UI-only implementation.
 
 ---
 
-
-<a>
   
 📱 Screenshots
 
@@ -47,7 +45,7 @@ architecture design, and state management rather than UI-only implementation.
 | Dark | Light |
 |------|-------|
 | ![](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/en/dark/screenshot_en_dark.png) | ![](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/en/light/screenshot_en_light.png) |
-</a>
+
 
 <hr></hr>
 <h2 tabindex="-1" class="heading-element" dir="auto">Download</h2>
