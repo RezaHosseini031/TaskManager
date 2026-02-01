@@ -40,7 +40,9 @@ architecture design, and state management rather than UI-only implementation.
 
 
 <a>
+  
 📱 Screenshots
+
 
 | Dark | Light |
 |------|-------|
@@ -130,7 +132,11 @@ The project structure allows these features to be added easily in future iterati
   <li>📊 مدیریت وضعیت‌های رابط کاربری (در حال بارگذاری، خطا، خالی، موفق)</li>
   <li>🧩 ساختار تمیز، ماژولار و قابل توسعه</li>
 </ul>
+
+
 ---
+
+
 📱 اسکرین‌شات‌ها
 
 🌙 تم تاریک
