@@ -34,7 +34,11 @@ architecture design, and state management rather than UI-only implementation.
   <li>📊 UI state handling (Loading, Success, Error, Empty)</li>
   <li>🧩 Clean, modular, and scalable architecture</li>
 </ul>
+
+
 ---
+
+
 <a>
 📱 Screenshots
 
