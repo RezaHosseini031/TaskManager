@@ -34,6 +34,12 @@ architecture design, and state management rather than UI-only implementation.
   <li>📊 UI state handling (Loading, Success, Error, Empty)</li>
   <li>🧩 Clean, modular, and scalable architecture</li>
 </ul>
+## 📱 Screenshots (English)
+
+| Dark | Light |
+|------|-------|
+| ![](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/en/dark/screenshot_en_dark.png) | ![](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/en/light/screenshot_en_light.png) |
+
 
 <hr></hr>
 <h2 tabindex="-1" class="heading-element" dir="auto">Download</h2>
@@ -118,6 +124,10 @@ The project structure allows these features to be added easily in future iterati
   <li>📊 مدیریت وضعیت‌های رابط کاربری (در حال بارگذاری، خطا، خالی، موفق)</li>
   <li>🧩 ساختار تمیز، ماژولار و قابل توسعه</li>
 </ul>
+## 📱 اسکرین‌شات‌ها (فارسی)
+
+### 🌙 تم تاریک
+![Dark Persian](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/fa/dark/screenshot_fa_dark.png)
 
 ---
 
