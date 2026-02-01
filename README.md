@@ -39,8 +39,7 @@ architecture design, and state management rather than UI-only implementation.
 ---
 
   
-📱 Screenshots
-
+<h2>📱 Screenshots</h2>
 
 | Dark | Light |
 |------|-------|
@@ -135,7 +134,8 @@ The project structure allows these features to be added easily in future iterati
 ---
 
 
-📱 اسکرین‌شات‌ها
+<h2>📱 اسکرین‌شات‌ها</h2>
+
 
 🌙 تم تاریک
 ![Dark Persian](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/fa/dark/screenshot_fa_dark.png)
