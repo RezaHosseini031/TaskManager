@@ -1,7 +1,7 @@
 <h1 align="center">📋 Task Manager with Focus Timer</h1>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/app/src/main/res/drawable/icon_app_about_us.png" width="120" alt="App Icon"/>
+  <img src="https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/app/src/main/res/drawable/icon_app.png" width="120" alt="App Icon"/>
 </p>
 
 <p align="center">
