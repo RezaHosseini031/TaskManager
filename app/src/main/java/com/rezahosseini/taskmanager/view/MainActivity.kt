@@ -12,6 +12,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,6 +23,7 @@ import com.rezahosseini.taskmanager.R
 import com.rezahosseini.taskmanager.model.local.DataEntity
 import com.rezahosseini.taskmanager.view.menu.AddItemBottomSheet
 import com.rezahosseini.taskmanager.vm.ViewModelData
+import com.rezahosseini.taskmanager.vm.state.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,7 +37,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+//        setContent {
+//            TaskManagerTheme {
+//                AppNavigation()
+//            }
+//        }
         viewPager = findViewById(R.id.viewPager)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         val appBarLayout = findViewById<AppBarLayout>(R.id.appBarMainActivity)
@@ -139,4 +147,37 @@ class MainActivity : AppCompatActivity() {
     private fun addItem(data: DataEntity){
         viewModelDataLocal.insert(data)
     }
+
+//    private fun observeImages() {
+//
+//        lifecycleScope.launch {
+//
+//
+//            repeatOnLifecycle(Lifecycle.State.STARTED) {
+//
+//                viewModelDataImage.getImages.collect { state ->
+//
+//                    when (state) {
+//
+//                        is UiState.Loading -> {
+//                            Log.d("@testDataImgae","lo")
+//                        }
+//
+//                        is UiState.Success -> {
+//                            Log.d("@testDataImgae",""+state.data)
+//                            val randomNumber = (1..10).random()
+//                            Glide.with(this@MainActivity)
+//                                .load("https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/app/src/main/assets/"+state.data.get(randomNumber).uriImage)
+//                                .placeholder(android.R.drawable.ic_input_add)
+//                                .into(floatAdd)
+//                        }
+//
+//                        is UiState.Error -> {
+//                            Log.d("@testDataImgae",""+state.message)
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
