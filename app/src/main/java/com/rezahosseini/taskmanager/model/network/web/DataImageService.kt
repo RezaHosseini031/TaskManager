@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface DataImageService {
     @GET("assets/icons.json")
-    fun getImages(): Flow<List<WebDataImage>>
+    suspend fun getImages(): List<WebDataImage>
 }

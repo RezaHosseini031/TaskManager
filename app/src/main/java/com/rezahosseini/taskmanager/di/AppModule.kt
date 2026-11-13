@@ -15,7 +15,7 @@ class AppModule {
     @Provides
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://raw.githubusercontent.com/RezaHosseini031/TaskManager/app/src/main/")
+            .baseUrl("https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/app/src/main/assets/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 }

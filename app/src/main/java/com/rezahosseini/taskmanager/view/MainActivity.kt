@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -12,6 +13,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.getValue
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,10 +28,16 @@ import com.rezahosseini.taskmanager.model.local.DataEntity
 import com.rezahosseini.taskmanager.view.menu.AddItemBottomSheet
 import com.rezahosseini.taskmanager.vm.ViewModelData
 import dagger.hilt.android.AndroidEntryPoint
+import com.bumptech.glide.Glide
+import com.rezahosseini.taskmanager.vm.ViewModelDataImage
+import com.rezahosseini.taskmanager.vm.state.UiState
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity(
+) : AppCompatActivity() {
     private val viewModelDataLocal: ViewModelData by viewModels()
+    private val viewModelDataImage: ViewModelDataImage by viewModels()
     private lateinit var viewPager: ViewPager2
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var imageMore: ImageButton
@@ -37,9 +50,9 @@ class MainActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.viewPager)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         val appBarLayout = findViewById<AppBarLayout>(R.id.appBarMainActivity)
-        floatAdd=findViewById(R.id.floatAdd)
-        imageMore=findViewById(R.id.image_button_more)
-        textViewAppBar=findViewById(R.id.titleAppBarMainActivity)
+        floatAdd = findViewById(R.id.floatAdd)
+        imageMore = findViewById(R.id.image_button_more)
+        textViewAppBar = findViewById(R.id.titleAppBarMainActivity)
         appBarLayout.setExpanded(true, true)
         val adapter = AdapterViewPager(this)
         viewPager.adapter = adapter
@@ -50,10 +63,11 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.selectedItemId = R.id.menu
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.menu ->{
+                R.id.menu -> {
                     viewPager.currentItem = 0
                 }
-                R.id.timer ->{
+
+                R.id.timer -> {
                     viewPager.currentItem = 1
                 }
             }
@@ -69,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     1 -> getString(R.string.timer)
                     else -> getString(R.string.empty)
                 }
-                floatAdd.visibility=when(position){
+                floatAdd.visibility = when (position) {
                     0 -> View.VISIBLE
                     1 -> View.GONE
                     else -> View.GONE
@@ -128,15 +142,51 @@ class MainActivity : AppCompatActivity() {
                 bottomNavigationView.menu.getItem(position).isChecked = true
             }
         })
+
         floatAdd.setOnClickListener {
             val bottomSheet = AddItemBottomSheet() { dataEntity ->
                 addItem(dataEntity)
             }
             bottomSheet.show(supportFragmentManager, "addItem")
         }
+        observeImages()
 
     }
-    private fun addItem(data: DataEntity){
+
+    private fun addItem(data: DataEntity) {
         viewModelDataLocal.insert(data)
+    }
+
+    private fun observeImages() {
+
+        lifecycleScope.launch {
+
+
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                viewModelDataImage.getImages.collect { state ->
+
+                    when (state) {
+
+                        is UiState.Loading -> {
+                            Log.d("@testDataImgae","lo")
+                        }
+
+                        is UiState.Success -> {
+                            Log.d("@testDataImgae",""+state.data)
+                            val randomNumber = (1..10).random()
+                            Glide.with(this@MainActivity)
+                                .load(state.data.get(randomNumber))
+                                .placeholder(android.R.drawable.ic_input_add)
+                                .into(floatAdd)
+                        }
+
+                        is UiState.Error -> {
+                            Log.d("@testDataImgae",""+state.message)
+                        }
+                    }
+                }
+            }
+        }
     }
 }

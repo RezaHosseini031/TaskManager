@@ -19,7 +19,9 @@ class DataImageProviderImpl : DataImageProvider {
         this.webDataImageMapper=webDataImageMapper
     }
     override fun getImages(): Flow<List<DataImage>> {
-        return dataImageService.getImages().map { webDataImage: List<WebDataImage> ->
-            webDataImage.map { webDataImageMapper.toDataImage(it) } }
+        return flow{
+           val images=dataImageService.getImages()
+           emit(images.map(webDataImageMapper::toDataImage))
+        }
     }
 }
