@@ -7,9 +7,8 @@ import com.rezahosseini.taskmanager.model.local.database.AppDatabase
 import kotlinx.coroutines.flow.Flow
 
 
-class DataRepository(context: Context) {
+class DataRepository( private val daoData: DataDao) {
 
-    private val daoData: DataDao = AppDatabase.getInstance(context).dataDao()
 
     fun getAllData(): Flow<List<DataEntity>> = daoData.getAllData()
     fun getFiltered( query: String, sort: String): Flow<List<DataEntity>> = daoData.getFiltered(query, sort)

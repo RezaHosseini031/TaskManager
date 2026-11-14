@@ -1,6 +1,7 @@
 package com.rezahosseini.taskmanager.view.tasks
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -8,6 +9,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -81,7 +84,9 @@ fun TasksScreen(
         ) {
                 when (val state = dataStateFlow) {
                     is UiState.Loading -> {
-
+                        item{
+                            CircularProgressIndicator()
+                        }
                     }
                     is UiState.Success -> {
                         val listUnDone = state.data.filter { it.done == false }
@@ -158,7 +163,13 @@ fun TasksScreen(
                             )
                         }
                     }
+
                     is UiState.Error -> {
+                        item{
+                            Column {
+                                Text(state.message)
+                            }
+                        }
 
                     }
                 }

@@ -52,15 +52,15 @@ fun TaskItem(
                 onCheckedChange = onCheckedChange,
                 colors = CheckboxDefaults.colors(
                     checkedColor = when (priority) {
-                        1 -> Color.Red
+                        3 -> Color.Red
                         2 -> Color.Yellow
-                        3 -> Color.Green
+                        1 -> Color.Green
                         else -> MaterialTheme.colorScheme.primary
                     },
                     uncheckedColor = when (priority) {
-                        1 -> Color.Red
+                        3 -> Color.Red
                         2 -> Color.Yellow
-                        3 -> Color.Green
+                        1 -> Color.Green
                         else -> MaterialTheme.colorScheme.outline
                     }
                 )

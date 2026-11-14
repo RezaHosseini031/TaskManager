@@ -30,11 +30,15 @@ fun AppNavigation() {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
     val currentRoute = navBackStackEntry?.destination?.route
-
+    val title = when (currentRoute) {
+        "tasks" -> "Works"
+        "timer" -> "Timer"
+        else -> "Task Manager"
+    }
     Scaffold(
         topBar = {
             MainTopBar(
-                title = "Works"
+                title =title
             )
         },
         bottomBar = {
