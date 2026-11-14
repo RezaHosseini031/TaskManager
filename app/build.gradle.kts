@@ -57,6 +57,8 @@ dependencies {
     // --------------------------------------------------
 
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.ui)
     testImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(platform(libs.androidx.compose.bom))
 

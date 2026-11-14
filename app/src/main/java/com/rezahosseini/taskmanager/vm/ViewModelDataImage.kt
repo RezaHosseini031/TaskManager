@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.rezahosseini.taskmanager.model.network.DataImage
 import com.rezahosseini.taskmanager.model.network.repository.DataImageProvider
 import com.rezahosseini.taskmanager.model.network.repository.DataImageProviderImpl
+import com.rezahosseini.taskmanager.vm.event.TaskEvent
 import com.rezahosseini.taskmanager.vm.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -49,4 +50,5 @@ class ViewModelDataImage @Inject constructor(
             }
             .collect { emit(it) }
     }
+
 }

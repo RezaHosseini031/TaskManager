@@ -1,4 +1,10 @@
 package com.rezahosseini.taskmanager.view.navigation
 
-class Screen {
+sealed class Screen(val route: String) {
+
+    data object Tasks : Screen("tasks")
+
+    data object Timer : Screen("timer")
+
+    data object Settings : Screen("settings")
 }

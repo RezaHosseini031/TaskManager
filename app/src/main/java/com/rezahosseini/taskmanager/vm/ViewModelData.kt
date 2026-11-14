@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rezahosseini.taskmanager.model.local.DataEntity
 import com.rezahosseini.taskmanager.model.local.repository.DataRepository
+import com.rezahosseini.taskmanager.vm.event.TaskEvent
 import com.rezahosseini.taskmanager.vm.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
@@ -28,7 +30,8 @@ class ViewModelData @Inject constructor(
 
     private val sortFlow = MutableStateFlow("AZ")
     private val queryFlow = MutableStateFlow("")
-
+    val query = queryFlow.asStateFlow()
+    val sort = sortFlow.asStateFlow()
     val allDataState: StateFlow<UiState<List<DataEntity>>> =
         dataRepository.getAllData()
             .map<List<DataEntity>, UiState<List<DataEntity>>> {
@@ -38,7 +41,7 @@ class ViewModelData @Inject constructor(
             .catch { emit(UiState.Error(it.message ?: "Unknown error")) }
             .stateIn(
                 viewModelScope,
-                SharingStarted.WhileSubscribed(5_000),
+                SharingStarted.Eagerly,
                 UiState.Loading
             )
     val dataStateFlow = combine(sortFlow, queryFlow) { sort, query ->
@@ -61,5 +64,52 @@ class ViewModelData @Inject constructor(
     fun deleteDataById(id: Long) = viewModelScope.launch { dataRepository.deleteDataById(id) }
     fun deleteAll() = viewModelScope.launch { dataRepository.deleteAll() }
     fun deleteByDone(done: Int) = viewModelScope.launch { dataRepository.deleteByDone(done) }
+    private val _selectedTask = MutableStateFlow<DataEntity?>(null)
+    val selectedTask = _selectedTask.asStateFlow()
+    fun onEvent(event: TaskEvent) {
+        when (event) {
+            is TaskEvent.OnTaskChecked -> {
+                viewModelScope.launch {
+                    val state = allDataState.value
+
+                    if (state is UiState.Success) {
+                        val task = state.data.find {
+                            it.id == event.taskId
+                        }
+
+                        task?.let {
+                            update(
+                                it.copy(
+                                    done = event.isCompleted
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+            is TaskEvent.OnEditTask -> {
+                when (val state = allDataState.value) {
+                    is UiState.Success -> {
+                        _selectedTask.value = state.data.find {
+                            it.id == event.taskId
+                        }
+                    }
+
+                    else -> {
+                        Log.w("ViewModelData", "Tasks are not loaded yet")
+                    }
+                }
+            }
+
+            is TaskEvent.OnDeleteTask -> {
+                deleteDataById(event.taskId)
+            }
+
+            else -> Unit
+        }
+    }
+    fun clearSelectedTask() {
+        _selectedTask.value = null
+    }
 }
 
