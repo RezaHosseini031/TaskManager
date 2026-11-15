@@ -1,191 +1,275 @@
-<h1 align="center">📋 Task Manager with Focus Timer</h1>
+# 📋 Task Manager with Focus Timer
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/app/src/main/res/drawable/icon_app.png" width="120" alt="App Icon"/>
+  <img src="https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/app/src/main/res/drawable/icon_app.png" width="120" alt="Task Manager App Icon"/>
 </p>
 
 <p align="center">
-  <b>An Android Task Manager app focused on clean architecture and scalability</b>
-</p>
-
-<hr/>
-
-<h2>📌 Project Overview</h2>
-
-<p>
-This project is an Android <b>Task Manager application</b> developed with a strong focus on
-<b>Clean Architecture, MVVM pattern, and proper separation of concerns</b>.
-In addition to task management, the app includes a <b>Focus Timer</b> to improve productivity.
-</p>
-
-<p>
-The primary goal of this project is to demonstrate real-world Android development practices,
-architecture design, and state management rather than UI-only implementation.
+  <b>An Android task management application built with Kotlin and Jetpack Compose.</b>
 </p>
 
 ---
 
-<h2>✨ Features</h2>
+## 📌 Project Overview
 
-<ul>
-  <li>✅ Create, edit, and delete tasks</li>
-  <li>📂 Separate completed and pending tasks</li>
-  <li>⏱️ Focus / Break timer logic</li>
-  <li>📊 UI state handling (Loading, Success, Error, Empty)</li>
-  <li>🧩 Clean, modular, and scalable architecture</li>
-</ul>
+Task Manager is an Android application designed to help users organize their daily tasks and improve productivity through a built-in Focus Timer.
 
+The project focuses on modern Android development practices, including **MVVM, Repository Pattern, Clean Architecture principles, reactive state management, and dependency injection**.
+
+The application is built with Kotlin and Jetpack Compose, with an emphasis on maintainable code, separation of concerns, and scalability.
+
+## ✨ Features
+
+- ✅ Create, edit, and delete tasks
+- 📂 Separate completed and pending tasks
+- 🔍 Search tasks
+- ↕️ Sort tasks by different criteria
+- ⭐ Assign priorities to tasks
+- ⏱️ Focus and Break timer
+- 🔔 Notifications and timer sounds
+- 🌙 Dark and Light themes
+- 📊 Reactive UI state management
+- 🧩 Modular and maintainable architecture
 
 ---
 
-  
-<h2>📱 Screenshots</h2>
+## 📱 Screenshots
 
-| Dark | Light |
-|------|-------|
-| ![](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/en/dark/screenshot_en_dark.png) | ![](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/en/light/screenshot_en_light.png) |
+| Dark Theme | Light Theme |
+|:---:|:---:|
+| ![Dark Theme](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/en/dark/screenshot_en_dark.png) | ![Light Theme](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/en/light/screenshot_en_light.png) |
 
+---
 
-<hr></hr>
-<h2 tabindex="-1" class="heading-element" dir="auto">Download</h2>
-<p dir="auto"><a href="https://github.com/RezaHosseini031/TaskManager/tree/main/app/release/app-release.apk"><img src="https://github.com/gokadzev/Musify/raw/master/repository_files/get-it-on-github.png" alt="Get it on Github" height="80" style="max-width: 100%; height: auto; max-height: 80px;"></a></p>
-<hr></hr>
-
-<h2>⚠️ Important Note</h2>
+## 📥 Download
 
 <p>
-Due to current network limitations, some features are not implemented or fully tested in this version:
-</p>
-
-<ul>
-  <li>Network image integration for FloatingActionButton icon</li>
-  <li>Full UI testing for this feature</li>
-  <li>Detailed code comments (KDoc / inline comments)</li>
-  <li>Logging with Timber</li>
-  <li>Architecture diagram</li>
-</ul>
-
-<p>
-<b>Model and ViewModel layers are fully implemented</b> and ready for UI integration.
-The project structure allows these features to be added easily in future iterations.
+  <a href="https://github.com/RezaHosseini031/TaskManager/tree/main/app/release/app-release.apk">
+    <img src="https://github.com/gokadzev/Musify/raw/master/repository_files/get-it-on-github.png" alt="Get it on GitHub" height="80"/>
+  </a>
 </p>
 
 ---
 
-<h2>🧰 Tech Stack</h2>
+## 🧰 Tech Stack
 
-<ul>
-  <li><b>Language:</b> Kotlin</li>
-  <li><b>Architecture:</b> MVVM, Repository Pattern, Clean Architecture (data / domain / ui)</li>
-  <li><b>UI:</b> XML Layouts, ViewBinding, Material Components</li>
-  <li><b>Navigation:</b> Navigation Component, Safe Args</li>
-  <li><b>Local Data:</b> Room Database (Entity, DAO, Database)</li>
-  <li><b>Networking:</b> Retrofit, OkHttp, Gson Converter</li>
-  <li><b>Data Source:</b> Static JSON (hosted on GitHub or stored in assets)</li>
-  <li><b>Asynchronous:</b> Kotlin Coroutines, Kotlin Flow, viewModelScope</li>
-  <li><b>Dependency Injection:</b> Hilt (Dagger Hilt)</li>
-  <li><b>State Management:</b> UiState (sealed class), Result / Resource wrapper</li>
-  <li><b>Error Handling:</b> try/catch, network error states, empty state handling</li>
-  <li><b>Version Control:</b> Git, GitHub</li>
-</ul>
-
----
-
-<h2>🚀 Future Improvements</h2>
-
-<ul>
-  <li>Complete UI integration for remaining features</li>
-  <li>Add Timber logging</li>
-  <li>Improve documentation with KDoc and inline comments</li>
-  <li>Add architecture diagram</li>
-  <li>Extend test coverage</li>
-</ul>
-
-<hr/>
-
-<h1 align="center">📋 مدیریت کارها با تایمر تمرکز</h1>
-
-<h2>📌 معرفی پروژه</h2>
-
-<p>
-این پروژه یک اپلیکیشن <b>مدیریت کار</b> برای اندروید است که با تمرکز ویژه بر
-<b>معماری تمیز، الگوی MVVM و جداسازی صحیح لایه‌ها</b> توسعه داده شده است.
-در کنار مدیریت تسک‌ها، یک <b>تایمر تمرکز (Focus Timer)</b> نیز در برنامه پیاده‌سازی شده است.
-</p>
-
-<p>
-هدف اصلی این پروژه نمایش مهارت‌های واقعی توسعه اندروید، طراحی معماری و مدیریت وضعیت‌هاست،
-نه صرفاً پیاده‌سازی ظاهری رابط کاربری.
-</p>
+| Category | Technologies |
+|---|---|
+| Language | Kotlin |
+| UI | Jetpack Compose |
+| UI Components | Material 3 |
+| Architecture | MVVM, Repository Pattern, Clean Architecture principles |
+| Navigation | Navigation Compose |
+| Local Database | Room |
+| Dependency Injection | Hilt |
+| Asynchronous Programming | Kotlin Coroutines |
+| Reactive Data | Kotlin Flow, StateFlow |
+| Networking | Retrofit, OkHttp, Gson |
+| Data Source | Static JSON |
+| State Management | UiState, StateFlow |
+| Version Control | Git, GitHub |
 
 ---
 
-<h2>✨ قابلیت‌ها</h2>
+## 🏗️ Architecture
 
-<ul>
-  <li>✅ ایجاد، ویرایش و حذف تسک‌ها</li>
-  <li>📂 تفکیک کارهای انجام‌شده و انجام‌نشده</li>
-  <li>⏱️ منطق تایمر تمرکز و استراحت</li>
-  <li>📊 مدیریت وضعیت‌های رابط کاربری (در حال بارگذاری، خطا، خالی، موفق)</li>
-  <li>🧩 ساختار تمیز، ماژولار و قابل توسعه</li>
-</ul>
+The project follows a layered architecture with clear separation between UI, ViewModel, Repository, and data source responsibilities.
 
+```text
+        UI Layer
+    (Jetpack Compose)
+           |
+           ▼
+      ViewModel
+           |
+           ▼
+      Repository
+           |
+           ▼
+       Data DAO
+           |
+           ▼
+       Room DB
+```
+
+- **UI:** Displays application screens using Jetpack Compose and Material 3.
+- **ViewModel:** Manages UI state and handles user interactions.
+- **Repository:** Separates data operations from the ViewModel.
+- **DAO:** Provides database access through Room.
+- **Hilt:** Handles dependency injection.
 
 ---
 
+## 🔄 Project Evolution
 
-<h2>📱 اسکرین‌شات‌ها</h2>
+Task Manager was originally developed using **XML layouts**. As the project evolved, its main development branch was migrated to **Jetpack Compose** to adopt a modern declarative UI approach.
 
+The original XML implementation has been preserved in a separate branch.
 
-🌙 تم تاریک
+- **`main`** — The current Jetpack Compose implementation.
+- **`release/1.0-xml`** — The original XML-based version (v1.0).
+
+This allows the original implementation to remain available while the main branch continues to evolve with Jetpack Compose.
+
+---
+
+## 🧪 Testing
+
+Automated testing is being developed to improve reliability and maintainability.
+
+Planned test coverage includes:
+
+- Room DAO tests
+- Repository tests
+- ViewModel tests
+- Timer logic tests
+- Jetpack Compose UI tests
+
+---
+
+## 🚀 Future Improvements
+
+- Expand automated test coverage.
+- Improve documentation with KDoc and inline comments.
+- Add Timber for structured logging.
+- Add an architecture diagram.
+- Improve UI and application performance.
+- Expand application features and usability.
+
+---
+
+## 👨‍💻 Author
+
+**Reza Hosseini**
+
+- GitHub: [RezaHosseini031](https://github.com/RezaHosseini031)
+
+Task Manager is an independent personal project developed to practice and demonstrate Android application development.
+
+---
+
+# 📋 مدیریت کارها با تایمر تمرکز
+
+## 📌 معرفی پروژه
+
+Task Manager یک اپلیکیشن اندرویدی برای مدیریت کارهای روزانه و افزایش بهره‌وری است که در کنار قابلیت مدیریت تسک‌ها، از یک تایمر تمرکز و استراحت نیز بهره می‌برد.
+
+این پروژه با Kotlin و Jetpack Compose توسعه داده شده و تمرکز اصلی آن بر استفاده از روش‌های مدرن توسعه اندروید، معماری قابل نگهداری، جداسازی مسئولیت‌ها و مدیریت واکنشی وضعیت رابط کاربری است.
+
+## ✨ قابلیت‌ها
+
+- ✅ ایجاد، ویرایش و حذف تسک‌ها
+- 📂 تفکیک کارهای انجام‌شده و انجام‌نشده
+- 🔍 جست‌وجوی تسک‌ها
+- ↕️ مرتب‌سازی بر اساس معیارهای مختلف
+- ⭐ تعیین اولویت برای تسک‌ها
+- ⏱️ تایمر تمرکز و استراحت
+- 🔔 اعلان‌ها و صداهای تایمر
+- 🌙 پشتیبانی از تم تاریک و روشن
+- 📊 مدیریت واکنشی وضعیت رابط کاربری
+- 🧩 معماری ماژولار و قابل توسعه
+
+---
+
+## 📱 تصاویر برنامه
+
+### 🌙 تم تاریک
+
 ![Dark Persian](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/fa/dark/screenshot_fa_dark.png)
 
 ---
 
-<h2>⚠️ نکته مهم</h2>
+## 🧰 تکنولوژی‌های استفاده‌شده
 
-<p>
-به‌دلیل محدودیت‌های فعلی اینترنت، برخی بخش‌ها در این نسخه تکمیل نشده‌اند:
-</p>
-
-<ul>
-  <li>اتصال تصویر شبکه‌ای به آیکون FloatingActionButton</li>
-  <li>تست کامل رابط کاربری برای این قابلیت</li>
-  <li>کامنت‌گذاری کامل داخل کد (KDoc / Inline Comments)</li>
-  <li>لاگ‌گیری با Timber</li>
-  <li>نمودار معماری</li>
-</ul>
-
-<p>
-با این حال، <b>لایه‌های Model و ViewModel به‌صورت کامل پیاده‌سازی شده‌اند</b>
-و پروژه از نظر معماری و منطق بیزینسی کامل و آماده توسعه است.
-</p>
-
----
-
-<h2>🧰 تکنولوژی‌های استفاده‌شده</h2>
-
-<ul>
-  <li><b>زبان:</b> Kotlin</li>
-  <li><b>معماری:</b> MVVM، Repository Pattern، Clean Architecture</li>
-  <li><b>رابط کاربری:</b> XML، ViewBinding، Material Components</li>
-  <li><b>ناوبری:</b> Navigation Component، Safe Args</li>
-  <li><b>داده محلی:</b> Room (Entity، DAO، Database)</li>
-  <li><b>شبکه:</b> Retrofit، OkHttp، Gson</li>
-  <li><b>همزمانی:</b> Coroutines، Flow، viewModelScope</li>
-  <li><b>تزریق وابستگی:</b> Hilt</li>
-  <li><b>مدیریت وضعیت:</b> UiState، Result Wrapper</li>
-  <li><b>کنترل نسخه:</b> Git، GitHub</li>
-</ul>
+| دسته‌بندی | تکنولوژی‌ها |
+|---|---|
+| زبان برنامه‌نویسی | Kotlin |
+| رابط کاربری | Jetpack Compose |
+| کامپوننت‌های رابط کاربری | Material 3 |
+| معماری | MVVM، Repository Pattern، اصول Clean Architecture |
+| ناوبری | Navigation Compose |
+| پایگاه داده محلی | Room |
+| تزریق وابستگی | Hilt |
+| برنامه‌نویسی ناهمگام | Kotlin Coroutines |
+| داده‌های واکنشی | Kotlin Flow، StateFlow |
+| ارتباط شبکه | Retrofit، OkHttp، Gson |
+| منبع داده | Static JSON |
+| مدیریت وضعیت | UiState، StateFlow |
+| کنترل نسخه | Git، GitHub |
 
 ---
 
-<h2>🚀 برنامه‌های آینده</h2>
+## 🏗️ معماری پروژه
 
-<ul>
-  <li>تکمیل کامل رابط کاربری</li>
-  <li>افزودن لاگ‌گیری با Timber</li>
-  <li>بهبود مستندات و کامنت‌ها</li>
-  <li>اضافه کردن نمودار معماری</li>
-  <li>افزودن تست‌های بیشتر</li>
-</ul>
+پروژه با جداسازی مسئولیت‌ها میان لایه‌های رابط کاربری، ViewModel، Repository و منبع داده طراحی شده است.
+
+```text
+        UI Layer
+    (Jetpack Compose)
+           |
+           ▼
+      ViewModel
+           |
+           ▼
+      Repository
+           |
+           ▼
+       Data DAO
+           |
+           ▼
+       Room DB
+```
+
+- **UI:** نمایش صفحات برنامه با Jetpack Compose و Material 3
+- **ViewModel:** مدیریت وضعیت رابط کاربری و رویدادهای کاربر
+- **Repository:** جداسازی عملیات داده از ViewModel
+- **DAO:** دسترسی به پایگاه داده با Room
+- **Hilt:** مدیریت تزریق وابستگی‌ها
+
+---
+
+## 🔄 روند توسعه و مهاجرت به Compose
+
+نسخه اولیه Task Manager با استفاده از **XML Layouts** توسعه داده شده بود. در ادامه، رابط کاربری نسخه اصلی پروژه به **Jetpack Compose** مهاجرت داده شد تا از رویکرد Declarative UI و ابزارهای مدرن توسعه اندروید استفاده شود.
+
+نسخه اولیه XML نیز در یک شاخه جداگانه حفظ شده است:
+
+- **`main`** — نسخه فعلی مبتنی بر Jetpack Compose
+- **`release/1.0-xml`** — نسخه اولیه مبتنی بر XML (نسخه 1.0)
+
+به این ترتیب، نسخه قبلی پروژه برای مراجعه و مقایسه در دسترس باقی می‌ماند و توسعه نسخه اصلی روی Compose ادامه پیدا می‌کند.
+
+---
+
+## 🧪 تست‌ها
+
+توسعه تست‌های خودکار پروژه برای افزایش اطمینان از صحت عملکرد و نگهداری بهتر کد در حال انجام است.
+
+بخش‌هایی که برای تست در نظر گرفته شده‌اند:
+
+- تست DAO و عملیات پایگاه داده Room
+- تست Repository
+- تست ViewModel
+- تست منطق تایمر
+- تست رابط کاربری Jetpack Compose
+
+---
+
+## 🚀 برنامه‌های آینده
+
+- گسترش پوشش تست‌های خودکار
+- تکمیل مستندات با KDoc و کامنت‌های داخل کد
+- اضافه کردن Timber برای مدیریت لاگ‌ها
+- تکمیل نمودار معماری
+- بهبود رابط کاربری و عملکرد برنامه
+- توسعه قابلیت‌ها و امکانات جدید
+
+---
+
+## 👨‍💻 توسعه‌دهنده
+
+**Reza Hosseini**
+
+- گیت‌هاب: [RezaHosseini031](https://github.com/RezaHosseini031)
+
+Task Manager یک پروژه شخصی و مستقل برای تمرین و نمایش مهارت‌های توسعه اپلیکیشن اندروید است.
