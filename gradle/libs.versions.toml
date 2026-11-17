@@ -43,7 +43,6 @@ glide = "4.16.0"
 
 # Unit Testing
 junit = "4.13.2"
-mockk = "1.14.11"
 turbine = "1.2.1"
 
 # Android Testing
@@ -52,7 +51,12 @@ espresso = "3.7.0"
 androidxTest = "1.7.0"
 ui = "1.12.1"
 runtimeLivedata = "1.12.1"
-
+# Testing
+mockito = "5.24.0"
+mockitoKotlin = "6.4.0"
+robolectric = "4.18"
+hamcrest = "3.0"
+datafaker = "2.7.0"
 
 [libraries]
 
@@ -128,7 +132,6 @@ glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = 
 
 # Unit Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
 # Android Instrumentation Testing
@@ -140,6 +143,18 @@ androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "
 androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "ui" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
+# Mockito
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+
+# Robolectric
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
+
+# Hamcrest
+hamcrest = { group = "org.hamcrest", name = "hamcrest", version.ref = "hamcrest" }
+
+# Faker
+datafaker = { group = "net.datafaker", name = "datafaker", version.ref = "datafaker" }
 
 [plugins]
 

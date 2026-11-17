@@ -88,7 +88,6 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
 
     // --------------------------------------------------
@@ -177,14 +176,32 @@ dependencies {
 
     // Keep legacy Kapt only for Glide annotation processor
     kapt(libs.glide.compiler)
+    
+    // --------------------------------------------------
+    // Testing
+    // --------------------------------------------------
 
+    // Mockito
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+
+    // Robolectric
+    testImplementation(libs.robolectric)
+
+    // AndroidX Test Core
+    testImplementation(libs.androidx.test.core)
+
+    // Hamcrest
+    testImplementation(libs.hamcrest)
+
+    // Faker
+    testImplementation(libs.datafaker)
 
     // --------------------------------------------------
     // Unit Testing
     // --------------------------------------------------
 
     testImplementation(libs.junit)
-    testImplementation(libs.mockk)
 
     testImplementation(libs.coroutines.test)
     testImplementation(libs.turbine)
@@ -218,13 +235,8 @@ dependencies {
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.rules)
+    
 
 
-    // --------------------------------------------------
-    // Compose UI Testing
-    // --------------------------------------------------
 
-    androidTestImplementation(
-        libs.androidx.compose.ui.test.junit4
-    )
 }
