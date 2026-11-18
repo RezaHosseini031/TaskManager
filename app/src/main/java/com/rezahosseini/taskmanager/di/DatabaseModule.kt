@@ -23,7 +23,7 @@ class DatabaseModule {
     }
     @Singleton
     @Provides
-    fun provideDataRepository(@ApplicationContext daoData: DataDao):DataRepository{
+    fun provideDataRepository( daoData: DataDao):DataRepository{
         return DataRepository(daoData)
     }
     @Singleton

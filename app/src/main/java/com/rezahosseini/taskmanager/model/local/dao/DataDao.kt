@@ -16,7 +16,7 @@ interface DataDao {
     fun getDataById(id: Long): DataEntity?
 
     @Query("SELECT * FROM data WHERE done = :done")
-    fun getDataByDone(done: Int): Flow<List<DataEntity>>
+    fun getDataByDone(done: Boolean): Flow<List<DataEntity>>
 
     @Query("SELECT * FROM data WHERE name = :name")
     fun getDataByName(name: String): Flow<List<DataEntity>>
