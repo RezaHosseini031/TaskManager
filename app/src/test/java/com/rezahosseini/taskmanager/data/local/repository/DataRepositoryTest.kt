@@ -1,5 +1,4 @@
-
-package com.rezahosseini.taskmanager.data.repository
+package com.rezahosseini.taskmanager.data.local.repository
 
 import com.rezahosseini.taskmanager.model.local.DataEntity
 import com.rezahosseini.taskmanager.model.local.dao.DataDao
