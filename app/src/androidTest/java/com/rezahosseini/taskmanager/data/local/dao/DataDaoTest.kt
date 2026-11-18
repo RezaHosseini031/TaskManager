@@ -4,7 +4,7 @@ package com.rezahosseini.taskmanager.data.local.dao
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.rezahosseini.taskmanager.factory.DataEntityFactory
+import com.rezahosseini.taskmanager.data.local.factory.DataEntityFactory
 import com.rezahosseini.taskmanager.model.local.dao.DataDao
 import com.rezahosseini.taskmanager.model.local.database.AppDatabase
 import kotlinx.coroutines.flow.first

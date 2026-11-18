@@ -1,5 +1,4 @@
-
-package com.rezahosseini.taskmanager.factory
+package com.rezahosseini.taskmanager.data.local.factory
 
 import com.rezahosseini.taskmanager.model.local.DataEntity
 
