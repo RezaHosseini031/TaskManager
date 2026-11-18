@@ -15,6 +15,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import android.content.Context
+import kotlin.collections.first
 
 @RunWith(AndroidJUnit4::class)
 class DataDaoTest {
@@ -41,8 +42,11 @@ class DataDaoTest {
         database.close()
     }
     @Test
-    fun getAllData(){
+    fun getAllData()= runBlocking {
+        val task = DataEntityFactory.create()
+        dao.insertData(task)
         assertNotNull(dao.getAllData())
+
     }
     @Test
     fun getDataById()= runBlocking {
@@ -53,6 +57,7 @@ class DataDaoTest {
 
         val result = dao.getDataById(1)
         assertNotNull(result)
+        assertEquals("Test Task", result.name)
     }
     @Test
     fun getDataById_isNull() {
@@ -64,7 +69,6 @@ class DataDaoTest {
     @Test
     fun getDataByDone() = runBlocking {
         val task = DataEntityFactory.create(
-            id=1,
             done=false
         )
 
@@ -72,6 +76,8 @@ class DataDaoTest {
 
         val result=dao.getDataByDone(false)
         assertNotNull(result)
+        assertEquals(1, result.first().size)
+        assertEquals("Test Task", result.first().first().name)
 
     }
     @Test
@@ -82,6 +88,8 @@ class DataDaoTest {
         dao.insertData(task)
         val result=dao.getDataByName("NameTest")
         assertNotNull(result)
+        assertEquals(1, result.first().size)
+        assertEquals("NameTest", result.first().first().name)
     }
     @Test
     fun getDataByAbout()= runBlocking{
