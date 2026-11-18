@@ -57,7 +57,7 @@ class DataDaoTest {
 
         val result = dao.getDataById(1)
         assertNotNull(result)
-        assertEquals("Test Task", result.name)
+        assertEquals("Test Task", result?.name)
     }
     @Test
     fun getDataById_isNull() {
