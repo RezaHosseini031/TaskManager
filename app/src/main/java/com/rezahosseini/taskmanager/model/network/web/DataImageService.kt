@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import kotlinx.coroutines.flow.Flow
 
 interface DataImageService {
-    @GET("assets/icons.json")
+    @GET("icons.json")
     suspend fun getImages(): List<WebDataImage>
 }

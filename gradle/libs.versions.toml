@@ -54,6 +54,7 @@ runtimeLivedata = "1.12.1"
 # Testing
 mockito = "5.24.0"
 mockitoKotlin = "6.4.0"
+mockWebServer = "4.12.0"
 robolectric = "4.18"
 hamcrest = "3.0"
 datafaker = "2.7.0"
@@ -146,7 +147,7 @@ androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name =
 # Mockito
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
 mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
-
+mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "mockWebServer" }
 # Robolectric
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 
