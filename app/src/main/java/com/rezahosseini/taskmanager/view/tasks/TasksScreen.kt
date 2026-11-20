@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -18,6 +19,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,21 +33,27 @@ import com.rezahosseini.taskmanager.vm.ViewModelData
 import com.rezahosseini.taskmanager.vm.event.TaskEvent
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil3.compose.AsyncImage
+import com.rezahosseini.taskmanager.vm.ViewModelDataImage
 import com.rezahosseini.taskmanager.vm.state.UiState
+import kotlin.random.Random
 
 @Composable
 fun TasksScreen(
-    viewModel: ViewModelData= hiltViewModel()
+    viewModel: ViewModelData= hiltViewModel(),
+    viewModelImage: ViewModelDataImage = hiltViewModel()
 ) {
     val onEvent: (TaskEvent) -> Unit = viewModel::onEvent
 
     val dataStateFlow by viewModel.dataStateFlow.collectAsStateWithLifecycle()
     val selectedTask by viewModel.selectedTask.collectAsStateWithLifecycle()
+    val imageFlatState by viewModelImage.getImages.collectAsStateWithLifecycle()
     var showAddDialog by remember {
         mutableStateOf(false)
     }
     val query by viewModel.query.collectAsStateWithLifecycle()
     val sort by viewModel.sort.collectAsStateWithLifecycle()
+    var diceRoll by remember { mutableLongStateOf(Random.nextLong(1, 11)) }
     Scaffold(
         topBar = {
             TasksTopBar(
@@ -65,12 +74,28 @@ fun TasksScreen(
                 FloatingActionButton(
                     onClick = {
                         showAddDialog = true
+                        diceRoll = Random.nextLong(1, 11)
                     }
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Add Task"
-                    )
+                    when(val state = imageFlatState){
+                        is UiState.Success ->{
+                            val currentIcon = state.data.find { it.id == diceRoll }
+
+                            if (currentIcon != null) {
+                                AsyncImage(
+                                    model = "https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/app/src/main/assets/${currentIcon.uriImage}",
+                                    contentDescription = "Random Icon",
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        }
+                        else -> {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "Add Task"
+                            )
+                        }
+                    }
                 }
             }
             ) { innerPadding ->

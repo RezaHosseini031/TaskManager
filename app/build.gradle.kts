@@ -197,6 +197,10 @@ dependencies {
 
     // Faker
     testImplementation(libs.datafaker)
+    // coil
+    implementation(libs.androidx.compose.runtime.saveable)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     // --------------------------------------------------
     // Unit Testing
