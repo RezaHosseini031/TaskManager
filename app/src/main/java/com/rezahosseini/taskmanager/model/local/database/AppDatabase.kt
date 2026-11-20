@@ -17,7 +17,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun dataDao(): DataDao
 
     companion object {
-        private const val DATABASE_NAME = "databaseTaskManager"
+        private const val DATABASE_NAME = "task_database"
 
         @Volatile
         private var INSTANCE: AppDatabase? = null
