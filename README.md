@@ -8,15 +8,21 @@
   <b>An Android task management application built with Kotlin and Jetpack Compose.</b>
 </p>
 
+<p align="center">
+  <a href="https://github.com/RezaHosseini031/TaskManager/tree/main">Current development — v1.1</a>
+  ·
+  <a href="https://github.com/RezaHosseini031/TaskManager/tree/release/1.0-xml">Original XML version — v1.0</a>
+</p>
+
 ---
 
 ## 📌 Project Overview
 
-Task Manager is an Android application designed to help users organize their daily tasks and improve productivity through a built-in Focus Timer.
+Task Manager is an Android application designed to help users organize daily tasks and improve productivity with a built-in Focus Timer.
 
-The project focuses on modern Android development practices, including **MVVM, Repository Pattern, Clean Architecture principles, reactive state management, and dependency injection**.
+The project uses modern Android development tools and patterns, including **Kotlin, Jetpack Compose, MVVM, Repository Pattern, Room, Hilt, Coroutines, and Flow**. Its development focuses on maintainable code, separation of concerns, and a responsive user interface.
 
-The application is built with Kotlin and Jetpack Compose, with an emphasis on maintainable code, separation of concerns, and scalability.
+Version **1.1** is a major step forward from the original XML-based **1.0** release. The application UI has been migrated to Jetpack Compose, and the timer implementation has been expanded with background execution and notification support.
 
 ## ✨ Features
 
@@ -26,10 +32,43 @@ The application is built with Kotlin and Jetpack Compose, with an emphasis on ma
 - ↕️ Sort tasks by different criteria
 - ⭐ Assign priorities to tasks
 - ⏱️ Focus and Break timer
-- 🔔 Notifications and timer sounds
+- ⏯️ Timer controls, including start, pause, resume, and restart
+- 🔔 Timer notifications and sound alerts
 - 🌙 Dark and Light themes
 - 📊 Reactive UI state management
-- 🧩 Modular and maintainable architecture
+- 💾 Local data persistence with Room
+- 🧩 Layered architecture with dependency injection
+
+---
+
+## 🆕 What's New in Version 1.1
+
+Version 1.1 evolves the original XML-based application into a Jetpack Compose implementation and improves the Focus Timer integration.
+
+### UI and interface
+
+- Migrated the main application interface from XML layouts to **Jetpack Compose**.
+- Rebuilt the UI using **Material 3** components.
+- Adopted Compose-based navigation.
+- Continued support for dark and light themes.
+- Updated UI state handling around ViewModel and reactive state streams.
+
+### Focus Timer
+
+- Expanded the timer implementation to work with both the app UI and Android background components.
+- Integrated a foreground service for background timer execution.
+- Integrated AlarmManager scheduling for timer completion.
+- Added notification and sound alert handling when a timer phase finishes.
+- Connected timer controls in the UI with the timer's background components.
+
+### Project structure and development
+
+- Updated the UI and navigation implementation for Compose.
+- Continued using Room for local task persistence.
+- Used Hilt for dependency injection and Kotlin Coroutines/Flow for asynchronous and reactive operations.
+- Added/continued automated ViewModel testing, including a timer phase completion test.
+
+> **Note:** Automated test coverage is still limited and is being expanded. The presence of a test does not mean that every timer lifecycle, Android background restriction, or device-specific behavior has been fully verified.
 
 ---
 
@@ -58,7 +97,7 @@ The application is built with Kotlin and Jetpack Compose, with an emphasis on ma
 | Language | Kotlin |
 | UI | Jetpack Compose |
 | UI Components | Material 3 |
-| Architecture | MVVM, Repository Pattern, Clean Architecture principles |
+| Architecture | MVVM, Repository Pattern, layered architecture |
 | Navigation | Navigation Compose |
 | Local Database | Room |
 | Dependency Injection | Hilt |
@@ -66,75 +105,75 @@ The application is built with Kotlin and Jetpack Compose, with an emphasis on ma
 | Reactive Data | Kotlin Flow, StateFlow |
 | Networking | Retrofit, OkHttp, Gson |
 | Data Source | Static JSON |
-| State Management | UiState, StateFlow |
+| Background Work | Android Foreground Service, AlarmManager |
 | Version Control | Git, GitHub |
 
 ---
 
 ## 🏗️ Architecture
 
-The project follows a layered architecture with clear separation between UI, ViewModel, Repository, and data source responsibilities.
-
-```text
-        UI Layer
-    (Jetpack Compose)
-           |
-           ▼
-      ViewModel
-           |
-           ▼
-      Repository
-           |
-           ▼
-       Data DAO
-           |
-           ▼
-       Room DB
-```
+The project follows a layered structure that separates UI, ViewModel, repository, and data responsibilities.
 
 - **UI:** Displays application screens using Jetpack Compose and Material 3.
-- **ViewModel:** Manages UI state and handles user interactions.
-- **Repository:** Separates data operations from the ViewModel.
+- **ViewModel:** Manages screen state and handles user interactions.
+- **Repository:** Separates data operations from ViewModel logic.
 - **DAO:** Provides database access through Room.
 - **Hilt:** Handles dependency injection.
 
+The project applies architectural principles such as separation of concerns and repository-based data access. It is a layered application; it should not be considered a fully separated Clean Architecture implementation with independent domain and use-case modules.
+
 ---
 
-## 🔄 Project Evolution
+## 🔄 Version History
 
-Task Manager was originally developed using **XML layouts**. As the project evolved, its main development branch was migrated to **Jetpack Compose** to adopt a modern declarative UI approach.
+### Version 1.1 — Jetpack Compose
 
-The original XML implementation has been preserved in a separate branch.
+The current \`main\` branch contains the Compose-based implementation and the latest development changes.
 
-- **`main`** — The current Jetpack Compose implementation.
-- **`release/1.0-xml`** — The original XML-based version (v1.0).
+- UI migrated from XML layouts to Jetpack Compose.
+- Material 3 and Navigation Compose used for the interface and navigation.
+- Focus Timer integration expanded with background service and alarm scheduling.
+- Timer completion alert and notification handling integrated with the application.
 
-This allows the original implementation to remain available while the main branch continues to evolve with Jetpack Compose.
+### Version 1.0 — XML
+
+The original XML-based implementation is preserved in the \`release/1.0-xml\` branch.
+
+- Original XML layout-based UI.
+- Baseline task management functionality.
+- Original project implementation before the Compose migration.
+
+You can browse both versions:
+
+- **[Version 1.1 — Current main branch](https://github.com/RezaHosseini031/TaskManager/tree/main)**
+- **[Version 1.0 — Original XML implementation](https://github.com/RezaHosseini031/TaskManager/tree/release/1.0-xml)**
 
 ---
 
 ## 🧪 Testing
 
-Automated testing is being developed to improve reliability and maintainability.
+Automated tests are included in the project, but overall test coverage is still a work in progress.
 
-Planned test coverage includes:
+Current and planned testing areas include:
 
-- Room DAO tests
-- Repository tests
-- ViewModel tests
-- Timer logic tests
-- Jetpack Compose UI tests
+- ViewModel behavior tests.
+- Timer phase and state-transition tests.
+- Room DAO tests.
+- Repository tests.
+- Compose UI tests.
+- Background timer and notification behavior across Android versions.
 
 ---
 
 ## 🚀 Future Improvements
 
-- Expand automated test coverage.
-- Improve documentation with KDoc and inline comments.
-- Add Timber for structured logging.
+- Expand automated test coverage, especially for timer lifecycle and background execution.
+- Improve timer state restoration after process death.
+- Review and unify timer completion handling to avoid duplicate alerts.
+- Improve documentation with KDoc and useful inline comments.
+- Add structured logging.
 - Add an architecture diagram.
-- Improve UI and application performance.
-- Expand application features and usability.
+- Continue improving UI consistency and application performance.
 
 ---
 
@@ -152,9 +191,11 @@ Task Manager is an independent personal project developed to practice and demons
 
 ## 📌 معرفی پروژه
 
-Task Manager یک اپلیکیشن اندرویدی برای مدیریت کارهای روزانه و افزایش بهره‌وری است که در کنار قابلیت مدیریت تسک‌ها، از یک تایمر تمرکز و استراحت نیز بهره می‌برد.
+Task Manager یک اپلیکیشن اندرویدی برای مدیریت کارهای روزانه و افزایش بهره‌وری است که در کنار قابلیت مدیریت تسک‌ها، تایمر تمرکز و استراحت نیز دارد.
 
-این پروژه با Kotlin و Jetpack Compose توسعه داده شده و تمرکز اصلی آن بر استفاده از روش‌های مدرن توسعه اندروید، معماری قابل نگهداری، جداسازی مسئولیت‌ها و مدیریت واکنشی وضعیت رابط کاربری است.
+این پروژه با Kotlin توسعه داده شده و در نسخه فعلی رابط کاربری آن با Jetpack Compose پیاده‌سازی شده است. تمرکز پروژه بر استفاده از ابزارهای مدرن توسعه اندروید، جداسازی مسئولیت‌ها، معماری قابل نگهداری و مدیریت واکنشی وضعیت رابط کاربری است.
+
+نسخه **1.1** نسبت به نسخه اولیه **1.0** تغییر مهمی داشته است: رابط کاربری از XML به Jetpack Compose مهاجرت کرده و پیاده‌سازی تایمر نیز با سرویس پس‌زمینه، زمان‌بندی آلارم و اعلان‌ها گسترش پیدا کرده است.
 
 ## ✨ قابلیت‌ها
 
@@ -164,18 +205,51 @@ Task Manager یک اپلیکیشن اندرویدی برای مدیریت کار
 - ↕️ مرتب‌سازی بر اساس معیارهای مختلف
 - ⭐ تعیین اولویت برای تسک‌ها
 - ⏱️ تایمر تمرکز و استراحت
-- 🔔 اعلان‌ها و صداهای تایمر
+- ⏯️ کنترل تایمر شامل شروع، توقف موقت، ادامه و راه‌اندازی مجدد
+- 🔔 اعلان‌ها و هشدار صوتی هنگام پایان مرحله تایمر
 - 🌙 پشتیبانی از تم تاریک و روشن
 - 📊 مدیریت واکنشی وضعیت رابط کاربری
-- 🧩 معماری ماژولار و قابل توسعه
+- 💾 ذخیره‌سازی محلی اطلاعات با Room
+- 🧩 ساختار لایه‌ای و تزریق وابستگی
+
+---
+
+## 🆕 تغییرات نسخه 1.1
+
+نسخه 1.1 نسبت به نسخه 1.0 فقط یک تغییر ظاهری نیست؛ رابط کاربری برنامه به Jetpack Compose مهاجرت کرده و بخش تایمر نیز با اجزای پس‌زمینه اندروید یکپارچه‌تر شده است.
+
+### رابط کاربری
+
+- مهاجرت رابط کاربری از **XML Layouts** به **Jetpack Compose**.
+- بازسازی کامپوننت‌های رابط کاربری با **Material 3**.
+- استفاده از Navigation Compose برای ناوبری صفحات.
+- ادامه پشتیبانی از تم تاریک و روشن.
+- به‌روزرسانی شیوه مدیریت وضعیت رابط کاربری با ViewModel و جریان‌های داده واکنشی.
+
+### تایمر تمرکز
+
+- گسترش پیاده‌سازی تایمر برای هماهنگی با رابط کاربری و اجزای پس‌زمینه اندروید.
+- استفاده از Foreground Service برای اجرای تایمر در پس‌زمینه.
+- استفاده از AlarmManager برای زمان‌بندی پایان تایمر.
+- اضافه شدن یکپارچگی اعلان و هشدار صوتی هنگام پایان مرحله تایمر.
+- اتصال کنترل‌های تایمر در رابط کاربری به اجزای پس‌زمینه.
+
+### ساختار و توسعه پروژه
+
+- به‌روزرسانی ساختار رابط کاربری و ناوبری متناسب با Compose.
+- ادامه استفاده از Room برای ذخیره‌سازی محلی تسک‌ها.
+- استفاده از Hilt برای تزریق وابستگی و Coroutines/Flow برای عملیات ناهمگام و داده‌های واکنشی.
+- اضافه شدن و توسعه تست‌های ViewModel، از جمله تست پایان مرحله تمرکز تایمر.
+
+> **توجه:** پوشش تست‌های خودکار هنوز کامل نیست و در حال توسعه است. وجود تست به معنی بررسی کامل تمام حالت‌های چرخه تایمر، محدودیت‌های اجرای پس‌زمینه اندروید یا رفتار برنامه روی همه دستگاه‌ها نیست.
 
 ---
 
 ## 📱 تصاویر برنامه
 
-### 🌙 تم تاریک
-
-![Dark Persian](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/fa/dark/screenshot_fa_dark.png)
+| تم تاریک | تم روشن |
+|:---:|:---:|
+| ![Dark Persian](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/fa/dark/screenshot_fa_dark.png) | ![Light Theme](https://raw.githubusercontent.com/RezaHosseini031/TaskManager/refs/heads/main/screenshot/en/light/screenshot_en_light.png) |
 
 ---
 
@@ -186,7 +260,7 @@ Task Manager یک اپلیکیشن اندرویدی برای مدیریت کار
 | زبان برنامه‌نویسی | Kotlin |
 | رابط کاربری | Jetpack Compose |
 | کامپوننت‌های رابط کاربری | Material 3 |
-| معماری | MVVM، Repository Pattern، اصول Clean Architecture |
+| معماری | MVVM، Repository Pattern، معماری لایه‌ای |
 | ناوبری | Navigation Compose |
 | پایگاه داده محلی | Room |
 | تزریق وابستگی | Hilt |
@@ -194,75 +268,75 @@ Task Manager یک اپلیکیشن اندرویدی برای مدیریت کار
 | داده‌های واکنشی | Kotlin Flow، StateFlow |
 | ارتباط شبکه | Retrofit، OkHttp، Gson |
 | منبع داده | Static JSON |
-| مدیریت وضعیت | UiState، StateFlow |
+| اجرای پس‌زمینه | Android Foreground Service، AlarmManager |
 | کنترل نسخه | Git، GitHub |
 
 ---
 
 ## 🏗️ معماری پروژه
 
-پروژه با جداسازی مسئولیت‌ها میان لایه‌های رابط کاربری، ViewModel، Repository و منبع داده طراحی شده است.
-
-```text
-        UI Layer
-    (Jetpack Compose)
-           |
-           ▼
-      ViewModel
-           |
-           ▼
-      Repository
-           |
-           ▼
-       Data DAO
-           |
-           ▼
-       Room DB
-```
+پروژه از ساختار لایه‌ای استفاده می‌کند تا مسئولیت‌های رابط کاربری، ViewModel، Repository و دسترسی به داده از یکدیگر جدا باشند.
 
 - **UI:** نمایش صفحات برنامه با Jetpack Compose و Material 3
-- **ViewModel:** مدیریت وضعیت رابط کاربری و رویدادهای کاربر
-- **Repository:** جداسازی عملیات داده از ViewModel
+- **ViewModel:** مدیریت وضعیت صفحه و رویدادهای کاربر
+- **Repository:** جداسازی عملیات داده از منطق ViewModel
 - **DAO:** دسترسی به پایگاه داده با Room
 - **Hilt:** مدیریت تزریق وابستگی‌ها
 
+پروژه از اصولی مانند جداسازی مسئولیت‌ها و استفاده از Repository بهره می‌برد؛ با این حال، ساختار فعلی را نباید یک پیاده‌سازی کامل Clean Architecture با ماژول‌های مستقل Domain و Use Case معرفی کرد.
+
 ---
 
-## 🔄 روند توسعه و مهاجرت به Compose
+## 🔄 تاریخچه نسخه‌ها
 
-نسخه اولیه Task Manager با استفاده از **XML Layouts** توسعه داده شده بود. در ادامه، رابط کاربری نسخه اصلی پروژه به **Jetpack Compose** مهاجرت داده شد تا از رویکرد Declarative UI و ابزارهای مدرن توسعه اندروید استفاده شود.
+### نسخه 1.1 — Jetpack Compose
 
-نسخه اولیه XML نیز در یک شاخه جداگانه حفظ شده است:
+شاخه فعلی \`main\` شامل پیاده‌سازی مبتنی بر Compose و آخرین تغییرات توسعه پروژه است.
 
-- **`main`** — نسخه فعلی مبتنی بر Jetpack Compose
-- **`release/1.0-xml`** — نسخه اولیه مبتنی بر XML (نسخه 1.0)
+- مهاجرت رابط کاربری از XML به Jetpack Compose.
+- استفاده از Material 3 و Navigation Compose.
+- گسترش یکپارچگی تایمر تمرکز با سرویس پس‌زمینه و زمان‌بندی آلارم.
+- یکپارچه‌سازی اعلان و هشدار پایان تایمر با برنامه.
 
-به این ترتیب، نسخه قبلی پروژه برای مراجعه و مقایسه در دسترس باقی می‌ماند و توسعه نسخه اصلی روی Compose ادامه پیدا می‌کند.
+### نسخه 1.0 — XML
+
+پیاده‌سازی اولیه مبتنی بر XML در شاخه \`release/1.0-xml\` حفظ شده است.
+
+- رابط کاربری مبتنی بر XML Layouts.
+- قابلیت‌های پایه مدیریت تسک‌ها.
+- نسخه اولیه پروژه پیش از مهاجرت به Compose.
+
+مشاهده هر دو نسخه:
+
+- **[نسخه 1.1 — شاخه اصلی](https://github.com/RezaHosseini031/TaskManager/tree/main)**
+- **[نسخه 1.0 — پیاده‌سازی اولیه XML](https://github.com/RezaHosseini031/TaskManager/tree/release/1.0-xml)**
 
 ---
 
 ## 🧪 تست‌ها
 
-توسعه تست‌های خودکار پروژه برای افزایش اطمینان از صحت عملکرد و نگهداری بهتر کد در حال انجام است.
+تست‌های خودکار در پروژه وجود دارند، اما پوشش کلی تست‌ها هنوز کامل نیست و در حال توسعه است.
 
-بخش‌هایی که برای تست در نظر گرفته شده‌اند:
+بخش‌های فعلی و برنامه‌ریزی‌شده برای تست:
 
+- تست رفتار ViewModel
+- تست مراحل و تغییر وضعیت تایمر
 - تست DAO و عملیات پایگاه داده Room
 - تست Repository
-- تست ViewModel
-- تست منطق تایمر
-- تست رابط کاربری Jetpack Compose
+- تست رابط کاربری Compose
+- بررسی رفتار تایمر پس‌زمینه و اعلان‌ها در نسخه‌های مختلف اندروید
 
 ---
 
 ## 🚀 برنامه‌های آینده
 
-- گسترش پوشش تست‌های خودکار
-- تکمیل مستندات با KDoc و کامنت‌های داخل کد
-- اضافه کردن Timber برای مدیریت لاگ‌ها
-- تکمیل نمودار معماری
-- بهبود رابط کاربری و عملکرد برنامه
-- توسعه قابلیت‌ها و امکانات جدید
+- گسترش پوشش تست‌های خودکار، به‌خصوص برای چرخه عمر تایمر و اجرای پس‌زمینه.
+- بهبود بازیابی وضعیت تایمر پس از بسته‌شدن فرایند برنامه.
+- یکپارچه‌سازی مدیریت پایان تایمر برای جلوگیری از اعلان‌های تکراری.
+- تکمیل مستندات با KDoc و کامنت‌های کاربردی.
+- اضافه کردن سیستم لاگ‌گیری ساختاریافته.
+- تکمیل نمودار معماری.
+- بهبود هماهنگی رابط کاربری و عملکرد برنامه.
 
 ---
 
