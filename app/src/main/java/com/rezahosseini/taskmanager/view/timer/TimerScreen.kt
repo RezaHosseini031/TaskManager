@@ -138,8 +138,10 @@ fun TimerScreen(
 
             Button(
                 onClick = {
-                    // Stop all timer mechanisms
+                    // Pause the UI timer and stop its notification/alarm companions.
                     viewModel.stopTimer()
+                    viewModel.pauseBackgroundTimer(context)
+                    viewModel.cancelAlarmTimer(context)
                     viewModel.pauseBackgroundTimer(context)
                     viewModel.cancelAlarmTimer(context)
                 },
