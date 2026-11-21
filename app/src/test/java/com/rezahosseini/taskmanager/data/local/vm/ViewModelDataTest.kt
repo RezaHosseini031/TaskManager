@@ -1,6 +1,6 @@
 package com.rezahosseini.taskmanager.data.local.vm
 
-import com.rezahosseini.taskmanager.data.local.MainDispatcherRule
+import com.rezahosseini.taskmanager.testutil.MainDispatcherRule
 import com.rezahosseini.taskmanager.model.local.DataEntity
 import com.rezahosseini.taskmanager.model.local.repository.DataRepository
 import com.rezahosseini.taskmanager.vm.ViewModelData
@@ -19,7 +19,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.any
-import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
@@ -219,11 +218,11 @@ class ViewModelDataTest {
 
     @Test
     fun deleteByDone_callsRepositoryWithCorrectValue() = runTest {
-        viewModel.deleteByDone(1)
+        viewModel.deleteByDone(true)
 
         advanceUntilIdle()
 
-        verify(repository).deleteByDone(1)
+        verify(repository).deleteByDone(true)
     }
 
     // --------------------------------------------------

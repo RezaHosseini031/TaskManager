@@ -13,7 +13,7 @@ interface DataDao {
     fun getAllData(): Flow<List<DataEntity>>
 
     @Query("SELECT * FROM data WHERE id = :id")
-    fun getDataById(id: Long): DataEntity?
+    suspend fun getDataById(id: Long): DataEntity?
 
     @Query("SELECT * FROM data WHERE done = :done")
     fun getDataByDone(done: Boolean): Flow<List<DataEntity>>
@@ -66,5 +66,5 @@ CASE WHEN :sort = 'DATE_OLD' THEN id END ASC
     suspend fun deleteAll()
 
     @Query("DELETE FROM data WHERE done = :done")
-    suspend fun deleteByDone(done: Int)
+    suspend fun deleteByDone(done: Boolean)
 }

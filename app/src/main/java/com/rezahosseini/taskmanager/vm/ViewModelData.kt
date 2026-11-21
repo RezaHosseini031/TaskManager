@@ -60,10 +60,13 @@ class ViewModelData @Inject constructor(
 
     fun insert(data: DataEntity) = viewModelScope.launch { dataRepository.insertData(data) }
     fun update(data: DataEntity) = viewModelScope.launch { dataRepository.updateData(data) }
+    private suspend fun updateEvent(data: DataEntity) {
+        dataRepository.updateData(data)
+    }
     fun delete(data: DataEntity) = viewModelScope.launch { dataRepository.deleteData(data) }
     fun deleteDataById(id: Long) = viewModelScope.launch { dataRepository.deleteDataById(id) }
     fun deleteAll() = viewModelScope.launch { dataRepository.deleteAll() }
-    fun deleteByDone(done: Int) = viewModelScope.launch { dataRepository.deleteByDone(done) }
+    fun deleteByDone(done: Boolean) = viewModelScope.launch { dataRepository.deleteByDone(done) }
     private val _selectedTask = MutableStateFlow<DataEntity?>(null)
     val selectedTask = _selectedTask.asStateFlow()
     fun onEvent(event: TaskEvent) {
@@ -78,7 +81,7 @@ class ViewModelData @Inject constructor(
                         }
 
                         task?.let {
-                            update(
+                            updateEvent(
                                 it.copy(
                                     done = event.isCompleted
                                 )

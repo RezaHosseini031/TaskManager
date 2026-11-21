@@ -115,7 +115,7 @@ class DataRepositoryTest {
 
     @Test
     fun deleteByDone_delegatesDoneValueToDao() = runTest {
-        val done = 1
+        val done = true
 
         repository.deleteByDone(done)
 

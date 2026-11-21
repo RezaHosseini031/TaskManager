@@ -66,7 +66,7 @@ fun TasksScreen(
                 },
 
                 onDeleteDone = {
-                    viewModel.deleteByDone(1)
+                    viewModel.deleteByDone(true)
                 }
             )
         },

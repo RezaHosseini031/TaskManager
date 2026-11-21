@@ -45,6 +45,8 @@ class DataDaoTest {
     fun getAllData()= runBlocking {
         val task = DataEntityFactory.create()
         dao.insertData(task)
+        assertEquals(1, dao.getAllData().first().size)
+
         assertNotNull(dao.getAllData())
 
     }
@@ -60,7 +62,7 @@ class DataDaoTest {
         assertEquals("Test Task", result?.name)
     }
     @Test
-    fun getDataById_isNull() {
+    fun getDataById_isNull()=runBlocking {
 
         val result = dao.getDataById(999L)
 
@@ -441,7 +443,7 @@ class DataDaoTest {
             )
         )
 
-        dao.deleteByDone(1)
+        dao.deleteByDone(true)
 
         val result = dao.getAllData().first()
 

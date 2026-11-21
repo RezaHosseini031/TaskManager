@@ -1,7 +1,7 @@
 package com.rezahosseini.taskmanager.data.remote.vm
 
 import app.cash.turbine.test
-import com.rezahosseini.taskmanager.data.local.MainDispatcherRule
+import com.rezahosseini.taskmanager.testutil.MainDispatcherRule
 import com.rezahosseini.taskmanager.model.network.DataImage
 import com.rezahosseini.taskmanager.model.network.repository.DataImageProvider
 import com.rezahosseini.taskmanager.vm.ViewModelDataImage

@@ -5,9 +5,12 @@ import com.rezahosseini.taskmanager.model.local.DataEntity
 import com.rezahosseini.taskmanager.model.local.dao.DataDao
 import com.rezahosseini.taskmanager.model.local.database.AppDatabase
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 
-class DataRepository( private val daoData: DataDao) {
+class DataRepository @Inject constructor(
+    private val daoData: DataDao
+) {
 
 
     fun getAllData(): Flow<List<DataEntity>> = daoData.getAllData()
@@ -18,6 +21,6 @@ class DataRepository( private val daoData: DataDao) {
     suspend fun deleteData(data: DataEntity) = daoData.deleteData(data)
     suspend fun deleteDataById(id: Long) = daoData.deleteDataById(id)
     suspend fun deleteAll() = daoData.deleteAll()
-    suspend fun deleteByDone(done: Int) = daoData.deleteByDone(done)
+    suspend fun deleteByDone(done: Boolean) = daoData.deleteByDone(done)
 }
 
