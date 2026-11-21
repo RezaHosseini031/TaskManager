@@ -128,20 +128,7 @@ fun TimerScreen(
 
             Button(
                 onClick = {
-                    // 1. Start in-app timer
-                    viewModel.startTimer(context)
-
-                    // 2. Start foreground service
-                    viewModel.startBackgroundTimer(
-                        context,
-                        remainingSeconds
-                    )
-
-                    // 3. Schedule alarm
-                    viewModel.startAlarmTimer(
-                        context,
-                        remainingSeconds
-                    )
+                    viewModel.startAllTimers(context)
                 },
                 enabled = !isRunning && remainingSeconds > 0,
                 modifier = Modifier.weight(1f)
@@ -151,8 +138,10 @@ fun TimerScreen(
 
             Button(
                 onClick = {
-                    // Stop all timer mechanisms
+                    // Pause the UI timer and stop its notification/alarm companions.
                     viewModel.stopTimer()
+                    viewModel.pauseBackgroundTimer(context)
+                    viewModel.cancelAlarmTimer(context)
                     viewModel.pauseBackgroundTimer(context)
                     viewModel.cancelAlarmTimer(context)
                 },
@@ -164,27 +153,7 @@ fun TimerScreen(
 
             Button(
                 onClick = {
-                    // Restart in-app timer
-                    viewModel.restart(context)
-
-                    // Restart service and alarm with current phase duration
-                    val restartSeconds = when (mode) {
-                        TimerViewModel.Mode.BREAK ->
-                            prefs.getBreakMinutes() * 60
-
-                        else ->
-                            prefs.getFocusMinutes() * 60
-                    }
-
-                    viewModel.startBackgroundTimer(
-                        context,
-                        restartSeconds
-                    )
-
-                    viewModel.startAlarmTimer(
-                        context,
-                        restartSeconds
-                    )
+                    viewModel.restartAllTimers(context)
                 },
                 modifier = Modifier.weight(1f)
             ) {

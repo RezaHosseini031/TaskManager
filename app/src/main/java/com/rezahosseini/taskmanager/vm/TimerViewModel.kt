@@ -85,13 +85,13 @@ class TimerViewModel : ViewModel() {
             ?.takeIf { it > 0 }
             ?: focusDurationSeconds
 
-        startCountdown(seconds)
+        startCountdown(seconds, resetTotalTime = false)
     }
 
-    private fun startCountdown(seconds: Int) {
+    private fun startCountdown(seconds: Int, resetTotalTime: Boolean = true) {
         timer?.cancel()
 
-        totalTime = seconds
+        if (resetTotalTime) totalTime = seconds
         endAtElapsed = SystemClock.elapsedRealtime() + seconds * 1000L
 
         _remainingSeconds.value = seconds
@@ -154,6 +154,38 @@ class TimerViewModel : ViewModel() {
         }
     }
 
+    /** Starts the in-app timer, foreground notification service and system alarm together. */
+    fun startAllTimers(context: Context) {
+        appContext = context.applicationContext
+        if (_isRunning.value == true) return
+
+        val seconds = _remainingSeconds.value
+            ?.takeIf { it > 0 }
+            ?: if (_mode.value == Mode.BREAK) breakDurationSeconds else focusDurationSeconds
+
+        // Start external mechanisms with the exact same duration before updating UI state.
+        startBackgroundTimer(context, seconds)
+        startAlarmTimer(context, seconds)
+        startCountdown(seconds, resetTotalTime = false)
+    }
+
+    /** Restarts the current phase and synchronizes all timer mechanisms. */
+    fun restartAllTimers(context: Context) {
+        appContext = context.applicationContext
+        val seconds = if (_mode.value == Mode.BREAK) {
+            breakDurationSeconds
+        } else {
+            focusDurationSeconds
+        }
+
+        timer?.cancel()
+        timer = null
+        _mode.value = if (_mode.value == Mode.BREAK) Mode.BREAK else Mode.FOCUS
+        startBackgroundTimer(context, seconds)
+        startAlarmTimer(context, seconds)
+        startCountdown(seconds, resetTotalTime = true)
+    }
+
     fun stopTimer() {
         if (_isRunning.value != true) return
 
@@ -177,7 +209,7 @@ class TimerViewModel : ViewModel() {
         val seconds = _remainingSeconds.value ?: 0
         if (seconds <= 0) return
 
-        startCountdown(seconds)
+        startCountdown(seconds, resetTotalTime = false)
     }
 
     fun restart(context: Context) {
