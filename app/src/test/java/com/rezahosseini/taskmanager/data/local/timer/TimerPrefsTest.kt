@@ -2,7 +2,7 @@ package com.rezahosseini.taskmanager.data.local.timer
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.rezahosseini.taskmanager.model.local.TimerPrefs
+import com.rezahosseini.taskmanager.model.local.timer.TimerPrefs
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

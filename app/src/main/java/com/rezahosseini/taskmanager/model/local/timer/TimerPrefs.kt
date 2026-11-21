@@ -1,6 +1,4 @@
-package com.rezahosseini.taskmanager.model.local
-
-
+package com.rezahosseini.taskmanager.model.local.timer
 
 import android.content.Context
 

@@ -16,6 +16,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,10 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rezahosseini.taskmanager.R
-import com.rezahosseini.taskmanager.model.local.TimerPrefs
+import com.rezahosseini.taskmanager.model.local.timer.TimerPrefs
 import com.rezahosseini.taskmanager.vm.TimerViewModel
 
-@androidx.compose.runtime.Composable
+@Composable
 fun TimerScreen(
     viewModel: TimerViewModel = viewModel()
 ) {
@@ -53,14 +54,11 @@ fun TimerScreen(
         mutableStateOf(false)
     }
 
-    // مقداردهی اولیه مشابه نسخه XML
     LaunchedEffect(Unit) {
-        viewModel.startTimer(
-            context = context,
+        viewModel.initializeTimer(
             focusSeconds = prefs.getFocusMinutes() * 60,
             breakSeconds = prefs.getBreakMinutes() * 60
         )
-        viewModel.stopTimer()
     }
 
     val modeText = when (mode) {
@@ -87,7 +85,6 @@ fun TimerScreen(
             modifier = Modifier.size(300.dp),
             contentAlignment = Alignment.Center
         ) {
-
             CircularProgressIndicator(
                 progress = {
                     (progress / 100f).coerceIn(0f, 1f)
@@ -98,7 +95,6 @@ fun TimerScreen(
                 strokeWidth = 8.dp
             )
 
-            // با لمس زمان، دیالوگ تنظیمات باز می‌شود
             Text(
                 text = String.format(
                     "%02d:%02d",
@@ -124,7 +120,7 @@ fun TimerScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Timer buttons
+        // Timer controls
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -132,9 +128,22 @@ fun TimerScreen(
 
             Button(
                 onClick = {
-                    viewModel.resume(context)
+                    // 1. Start in-app timer
+                    viewModel.startTimer(context)
+
+                    // 2. Start foreground service
+                    viewModel.startBackgroundTimer(
+                        context,
+                        remainingSeconds
+                    )
+
+                    // 3. Schedule alarm
+                    viewModel.startAlarmTimer(
+                        context,
+                        remainingSeconds
+                    )
                 },
-                enabled = !isRunning,
+                enabled = !isRunning && remainingSeconds > 0,
                 modifier = Modifier.weight(1f)
             ) {
                 Text(stringResource(R.string.start))
@@ -142,7 +151,10 @@ fun TimerScreen(
 
             Button(
                 onClick = {
+                    // Stop all timer mechanisms
                     viewModel.stopTimer()
+                    viewModel.pauseBackgroundTimer(context)
+                    viewModel.cancelAlarmTimer(context)
                 },
                 enabled = isRunning,
                 modifier = Modifier.weight(1f)
@@ -152,7 +164,27 @@ fun TimerScreen(
 
             Button(
                 onClick = {
+                    // Restart in-app timer
                     viewModel.restart(context)
+
+                    // Restart service and alarm with current phase duration
+                    val restartSeconds = when (mode) {
+                        TimerViewModel.Mode.BREAK ->
+                            prefs.getBreakMinutes() * 60
+
+                        else ->
+                            prefs.getFocusMinutes() * 60
+                    }
+
+                    viewModel.startBackgroundTimer(
+                        context,
+                        restartSeconds
+                    )
+
+                    viewModel.startAlarmTimer(
+                        context,
+                        restartSeconds
+                    )
                 },
                 modifier = Modifier.weight(1f)
             ) {
@@ -161,19 +193,28 @@ fun TimerScreen(
         }
     }
 
+    // Timer settings dialog
     if (showSettingsDialog) {
         TimerSettingsDialog(
             onDismiss = {
                 showSettingsDialog = false
             },
             onSave = { focus, breakTime ->
-                viewModel.startTimer(
-                    context = context,
+
+                prefs.setFocusMinutes(focus)
+                prefs.setBreakMinutes(breakTime)
+
+                // Stop old timers before applying new durations
+                viewModel.stopTimer()
+                viewModel.pauseBackgroundTimer(context)
+                viewModel.cancelAlarmTimer(context)
+
+                viewModel.updateDurationsAndReset(
                     focusSeconds = focus * 60,
                     breakSeconds = breakTime * 60
                 )
-                viewModel.stopTimer()
-                viewModel.resume(context)
+
+                showSettingsDialog = false
             }
         )
     }

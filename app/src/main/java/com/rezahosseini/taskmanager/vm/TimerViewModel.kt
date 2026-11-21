@@ -1,21 +1,26 @@
 package com.rezahosseini.taskmanager.vm
 
 import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
-import android.media.RingtoneManager
 import android.os.CountDownTimer
+import android.os.SystemClock
+import android.provider.Settings
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.rezahosseini.taskmanager.utils.NotificationHelper
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.rezahosseini.taskmanager.view.notification.TimerAlarmManager
+import com.rezahosseini.taskmanager.view.notification.TimerService
 
 class TimerViewModel : ViewModel() {
 
-    enum class Mode {
-        IDLE, FOCUS, BREAK
+    enum class Mode { IDLE, FOCUS, BREAK }
+
+    enum class ExecutionMode {
+        FOREGROUND,
+        BACKGROUND,
+        ALARM
     }
 
     private val _mode = MutableLiveData(Mode.IDLE)
@@ -31,111 +36,176 @@ class TimerViewModel : ViewModel() {
     val isRunning: LiveData<Boolean> = _isRunning
 
     private var timer: CountDownTimer? = null
+    private var endAtElapsed: Long = 0L
 
-    // Configured durations
     private var focusDurationSeconds = 25 * 60
     private var breakDurationSeconds = 5 * 60
-
-    // Current session duration
     private var totalTime = 0
+
+    private var appContext: Context? = null
+    private var mediaPlayer: MediaPlayer? = null
+    private val _executionMode =
+        MutableLiveData(ExecutionMode.FOREGROUND)
+
+    val executionMode: LiveData<ExecutionMode> = _executionMode
+
+    fun setExecutionMode(mode: ExecutionMode) {
+        if (_isRunning.value == true) return
+        _executionMode.value = mode
+    }
+    fun initializeTimer(focusSeconds: Int, breakSeconds: Int) {
+        if (_mode.value != Mode.IDLE) return
+
+        focusDurationSeconds = focusSeconds.coerceAtLeast(1)
+        breakDurationSeconds = breakSeconds.coerceAtLeast(1)
+
+        _mode.value = Mode.FOCUS
+        _remainingSeconds.value = focusDurationSeconds
+        totalTime = focusDurationSeconds
+        _progress.value = 0
+        _isRunning.value = false
+    }
 
     fun startTimer(
         context: Context,
         focusSeconds: Int? = null,
         breakSeconds: Int? = null
     ) {
-        focusSeconds?.let {
-            focusDurationSeconds = it.coerceAtLeast(1)
-        }
+        appContext = context.applicationContext
 
-        breakSeconds?.let {
-            breakDurationSeconds = it.coerceAtLeast(1)
-        }
+        focusSeconds?.let { focusDurationSeconds = it.coerceAtLeast(1) }
+        breakSeconds?.let { breakDurationSeconds = it.coerceAtLeast(1) }
 
         if (focusSeconds != null) {
             reset()
+            _mode.value = Mode.FOCUS
         }
 
-        val startFrom = _remainingSeconds.value
+        val seconds = _remainingSeconds.value
             ?.takeIf { it > 0 }
             ?: focusDurationSeconds
 
-        _mode.value = Mode.FOCUS
-        _remainingSeconds.value = startFrom
-        totalTime = startFrom
-        _progress.value = 0
-        _isRunning.value = true
+        startCountdown(seconds)
+    }
 
+    private fun startCountdown(seconds: Int) {
         timer?.cancel()
 
-        timer = object : CountDownTimer(
-            startFrom * 1000L,
-            1000
-        ) {
-            override fun onTick(ms: Long) {
-                val seconds = (ms / 1000).toInt()
+        totalTime = seconds
+        endAtElapsed = SystemClock.elapsedRealtime() + seconds * 1000L
 
-                _remainingSeconds.value = seconds
-                updateProgress(seconds)
+        _remainingSeconds.value = seconds
+        _isRunning.value = true
+
+        timer = object : CountDownTimer(seconds * 1000L, 250L) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                val remaining = (
+                        (endAtElapsed - SystemClock.elapsedRealtime() + 999) / 1000
+                        ).toInt().coerceAtLeast(0)
+
+                _remainingSeconds.value = remaining
+                updateProgress(remaining)
             }
 
             override fun onFinish() {
                 _remainingSeconds.value = 0
+                _progress.value = 100
+                _isRunning.value = false
+                timer = null
 
-                playSound(context)
-
-                NotificationHelper.showNotification(
-                    context,
-                    "Focus finished",
-                    "Time for a break!"
-                )
-
-                startBreak(context)
+                onPhaseFinished()
             }
         }.start()
     }
 
-    private fun startBreak(context: Context) {
-        val breakSeconds = breakDurationSeconds
+    private fun onPhaseFinished() {
+        val context = appContext
 
-        _mode.value = Mode.BREAK
-        _remainingSeconds.value = breakSeconds
-        totalTime = breakSeconds
-        _progress.value = 0
-        _isRunning.value = true
+        when (_mode.value) {
+            Mode.FOCUS -> {
+                context?.let {
+                    playSound(it)
+                    NotificationHelper.showNotification(
+                        it,
+                        "Focus finished",
+                        "Time for a break!"
+                    )
+                }
 
-        timer?.cancel()
-
-        timer = object : CountDownTimer(
-            breakSeconds * 1000L,
-            1000
-        ) {
-            override fun onTick(ms: Long) {
-                val seconds = (ms / 1000).toInt()
-
-                _remainingSeconds.value = seconds
-                updateProgress(seconds)
+                _mode.value = Mode.BREAK
+                startCountdown(breakDurationSeconds)
             }
 
-            override fun onFinish() {
-                _remainingSeconds.value = 0
-
-                playSound(context)
-
-                NotificationHelper.showNotification(
-                    context,
-                    "Break finished",
-                    "Ready for next session"
-                )
+            Mode.BREAK -> {
+                context?.let {
+                    playSound(it)
+                    NotificationHelper.showNotification(
+                        it,
+                        "Break finished",
+                        "Ready for the next session?"
+                    )
+                }
 
                 reset()
             }
-        }.start()
+
+            else -> reset()
+        }
     }
 
     fun stopTimer() {
-        _isRunning.value = false
+        if (_isRunning.value != true) return
+
+        val remaining = (
+                (endAtElapsed - SystemClock.elapsedRealtime() + 999) / 1000
+                ).toInt().coerceAtLeast(0)
+
         timer?.cancel()
+        timer = null
+
+        _remainingSeconds.value = remaining
+        _isRunning.value = false
+        updateProgress(remaining)
+    }
+
+    fun resume(context: Context) {
+        appContext = context.applicationContext
+
+        if (_isRunning.value == true) return
+
+        val seconds = _remainingSeconds.value ?: 0
+        if (seconds <= 0) return
+
+        startCountdown(seconds)
+    }
+
+    fun restart(context: Context) {
+        appContext = context.applicationContext
+
+        when (_mode.value) {
+            Mode.BREAK -> {
+                _mode.value = Mode.BREAK
+                startCountdown(breakDurationSeconds)
+            }
+
+            else -> {
+                _mode.value = Mode.FOCUS
+                startCountdown(focusDurationSeconds)
+            }
+        }
+    }
+
+    fun updateDurationsAndReset(focusSeconds: Int, breakSeconds: Int) {
+        reset()
+
+        focusDurationSeconds = focusSeconds.coerceAtLeast(1)
+        breakDurationSeconds = breakSeconds.coerceAtLeast(1)
+
+        _mode.value = Mode.FOCUS
+        _remainingSeconds.value = focusDurationSeconds
+        totalTime = focusDurationSeconds
+        _progress.value = 0
     }
 
     fun reset() {
@@ -146,88 +216,9 @@ class TimerViewModel : ViewModel() {
         _mode.value = Mode.IDLE
         _remainingSeconds.value = 0
         _progress.value = 0
+
         totalTime = 0
-    }
-
-    fun resume(context: Context) {
-        val seconds = _remainingSeconds.value ?: 0
-
-        if (seconds <= 0 || _isRunning.value == true) {
-            return
-        }
-
-        _isRunning.value = true
-
-        timer?.cancel()
-
-        timer = object : CountDownTimer(
-            seconds * 1000L,
-            1000
-        ) {
-            override fun onTick(ms: Long) {
-                val remaining = (ms / 1000).toInt()
-
-                _remainingSeconds.value = remaining
-                updateProgress(remaining)
-            }
-
-            override fun onFinish() {
-                _remainingSeconds.value = 0
-
-                when (_mode.value) {
-                    Mode.FOCUS -> {
-                        playSound(context)
-
-                        NotificationHelper.showNotification(
-                            context,
-                            "Focus finished",
-                            "Time for a break!"
-                        )
-
-                        // Uses the configured break duration
-                        startBreak(context)
-                    }
-
-                    Mode.BREAK -> {
-                        playSound(context)
-
-                        NotificationHelper.showNotification(
-                            context,
-                            "Break finished",
-                            "Ready for next session"
-                        )
-
-                        reset()
-                    }
-
-                    else -> reset()
-                }
-            }
-        }.start()
-    }
-
-    fun restart(context: Context) {
-        when (_mode.value) {
-            Mode.FOCUS -> {
-                startTimer(
-                    context = context,
-                    focusSeconds = focusDurationSeconds,
-                    breakSeconds = breakDurationSeconds
-                )
-            }
-
-            Mode.BREAK -> {
-                startBreak(context)
-            }
-
-            else -> {
-                startTimer(
-                    context = context,
-                    focusSeconds = focusDurationSeconds,
-                    breakSeconds = breakDurationSeconds
-                )
-            }
-        }
+        endAtElapsed = 0L
     }
 
     private fun updateProgress(seconds: Int) {
@@ -242,30 +233,127 @@ class TimerViewModel : ViewModel() {
     }
 
     private fun playSound(context: Context) {
-        val mediaPlayer = MediaPlayer.create(
-            context,
-            RingtoneManager.getDefaultUri(
-                RingtoneManager.TYPE_ALARM
-            )
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer.create(
+            context.applicationContext,
+            Settings.System.DEFAULT_ALARM_ALERT_URI
         ) ?: return
 
-        mediaPlayer.isLooping = false
-        mediaPlayer.start()
-
-        viewModelScope.launch {
-            delay(10_000)
-
-            if (mediaPlayer.isPlaying) {
-                mediaPlayer.stop()
-            }
-
-            mediaPlayer.release()
+        mediaPlayer?.setOnCompletionListener { player ->
+            player.release()
+            if (mediaPlayer === player) mediaPlayer = null
         }
+
+        mediaPlayer?.start()
     }
 
     override fun onCleared() {
         timer?.cancel()
         timer = null
+
+        mediaPlayer?.release()
+        mediaPlayer = null
+
+        appContext = null
         super.onCleared()
+    }
+
+    fun startBackgroundTimer(context: Context, seconds: Int) {
+        val intent = Intent(context, TimerService::class.java).apply {
+            action = TimerService.ACTION_START
+            putExtra(TimerService.EXTRA_SECONDS, seconds)
+        }
+
+        androidx.core.content.ContextCompat.startForegroundService(
+            context,
+            intent
+        )
+    }
+
+    fun pauseBackgroundTimer(context: Context) {
+        val intent = Intent(context, TimerService::class.java).apply {
+            action = TimerService.ACTION_PAUSE
+        }
+
+        context.startService(intent)
+    }
+
+    fun resetBackgroundTimer(context: Context) {
+        val intent = Intent(context, TimerService::class.java).apply {
+            action = TimerService.ACTION_RESET
+        }
+
+        context.startService(intent)
+    }
+    fun startAlarmTimer(context: Context, seconds: Int) {
+        TimerAlarmManager.cancel(context)
+        TimerAlarmManager.schedule(context, seconds)
+    }
+
+    fun cancelAlarmTimer(context: Context) {
+        TimerAlarmManager.cancel(context)
+    }
+    fun startSelectedTimer(context: Context) {
+        val seconds = remainingSeconds.value ?: 0
+        if (seconds <= 0) return
+
+        when (_executionMode.value) {
+            ExecutionMode.FOREGROUND -> {
+                resume(context)
+            }
+
+            ExecutionMode.BACKGROUND -> {
+                startBackgroundTimer(context, seconds)
+            }
+
+            ExecutionMode.ALARM -> {
+                startAlarmTimer(context, seconds)
+            }
+
+            null -> Unit
+        }
+    }
+
+    fun stopSelectedTimer() {
+        when (_executionMode.value) {
+            ExecutionMode.FOREGROUND -> {
+                stopTimer()
+            }
+
+            ExecutionMode.BACKGROUND -> {
+                appContext?.let { pauseBackgroundTimer(it) }
+            }
+
+            ExecutionMode.ALARM -> {
+                appContext?.let { cancelAlarmTimer(it) }
+            }
+
+            null -> Unit
+        }
+    }
+
+    fun restartSelectedTimer(context: Context) {
+        appContext = context.applicationContext
+
+        val seconds = when (_mode.value) {
+            Mode.BREAK -> breakDurationSeconds
+            else -> focusDurationSeconds
+        }
+
+        when (_executionMode.value) {
+            ExecutionMode.FOREGROUND -> {
+                restart(context)
+            }
+
+            ExecutionMode.BACKGROUND -> {
+                startBackgroundTimer(context, seconds)
+            }
+
+            ExecutionMode.ALARM -> {
+                startAlarmTimer(context, seconds)
+            }
+
+            null -> Unit
+        }
     }
 }
